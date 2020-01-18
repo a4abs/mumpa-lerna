@@ -1,0 +1,83 @@
+<style>
+    .listinglist > thead > tr > th {
+        width: 135px;
+    }
+</style>
+<main class="mdl-layout__content" layout="column" ng-init="initDealer();">
+    <div flex class="md-padding">
+        <div layout="column" class="md-whiteframe-z1" flex-sm- "100" flex-gt-sm="100" flex-gt-md="100" flex-gt-lg="100" style="margin-top:65px">
+            <md-content layout="column" ng-show="home_details.list_details.length > 0">
+                <md-content flex="100" layout="column" layout-align="center center" style="border:1px solid #000;">
+                    <div><h5>LISTING DETAILS</h5></div>
+                    <div><h6>Total Listing  :{{  home_details.list_details.length}}</h6></div>
+                    <div>
+                        <table class="table table-bordered table-striped table-hover listinglist" style="margin-bottom:20px;">
+                            <thead>
+                                <tr>
+                                    <th>Listing Id</th>
+                                    <th>Listing Name</th>
+                                    <th>Locality</th>
+                                    <th>Category</th>
+                                    <th>Primary Phone No.</th>
+                                    <th>User Type</th>
+                                    <th>View/Edit</th>
+                                </tr>
+                            </thead>
+                            <tbody>          
+                                <tr ng-repeat="list in home_details.list_details">
+                                    <td class="capitalize">{{list.listing_id}}</td>
+                                    <td class="capitalize">{{list.business_name}}</td>
+                                    <td class="capitalize">{{list.location}}</td>
+                                    <td class="capitalize">{{list.category}}</td>
+                                    <td>{{list.phone_no}}</td>
+                                    <td class="capitalize">{{list.role}}</td>
+                                    <td> 
+                                        <md-button class="md-raised md-primary" ng-click="viewListingDetailsDealer(list.listing_id)">View Details</md-button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </md-content>
+                <md-content flex="100" layout="column" layout-align="center center" style="border:1px solid #000;" ng-show="home_details.deal_details.length > 0">
+                    <div><h5>Deal DETAILS</h5></div>
+                    <div><h6>Total Deals  :{{  home_details.deal_details.length}}</h6></div>
+                    <div>
+                        <table class="table table-bordered table-striped table-hover listinglist" style="margin-bottom:20px;">
+                            <thead>
+                                <tr>
+                                    <th>Deal Id</th>
+                                    <th>Deal Name</th>
+                                    <th>List Name</th>
+                                    <th>Point Required</th>
+                                    <th>Status</th>
+                                    <th>Expiry Date</th>
+                                    <th>View/Edit</th>
+                                </tr>
+                            </thead>
+                            <tbody infinite-scroll="scrollAllApprovedListing()">          
+                                <tr ng-repeat="deal in home_details.deal_details">
+                                    <td class="capitalize">{{deal.voucher_id}}</td>
+                                    <td class="capitalize">{{deal.short_desc}}</td>
+                                    <td class="capitalize">{{deal.bs_name}}</td>
+                                    <td class="capitalize"><span ng-if="deal.price!=0">{{deal.price}}</span><span ng-if="deal.price==0">Free</span></td>
+                                    <td class="capitalize">{{deal.status}}</td>
+                                    <td class="capitalize">{{deal.expiry | date:longDate}}</td>
+                                    <td> 
+                                        <md-button class="md-raised md-primary" ng-click="dealView(deal.voucher_id)">View Details</md-button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </md-content>
+                <md-content flex="100" layout="column" layout-align="center center" style="border:1px solid #000;min-height:250px;" ng-show="home_details.deal_details.length <= 0">
+                    <span><h5><b>You Have Not Created Any Deals. To Create <a href="#/createdeal">Click Here</a> </b></h5></span>
+                </md-content>
+            </md-content>
+            <md-content flex="100" layout="column" layout-align="center center" style="border:1px solid #000;min-height:500px;" ng-show="home_details.list_details.length <= 0">
+                    <span><h5><b>You Have Not Created Any List. To Create <a href="#/createList">Click Here</a> </b></h5></span>
+                </md-content>        
+        </div>
+    </div>
+</main>

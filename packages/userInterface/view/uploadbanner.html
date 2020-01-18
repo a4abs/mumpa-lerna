@@ -1,0 +1,55 @@
+<main class="mdl-layout__content" layout="column">
+    <!-- initializeAllListingForApproval(); -->
+    <div flex class="md-padding">
+        <div layout="column" class="md-whiteframe-z5" flex-sm- "100" flex-gt-sm="100" flex-gt-md="100" flex-gt-lg="100" style="margin-top:65px">
+			<md-content layout="row">
+                <md-content layout="row" flex="50" layout-align="left center" class="border-bottom">
+                   <md-content layout-padding flex="70" layout-align="left center">
+                      
+                    </md-content>
+                </md-content>
+                <md-content layout="row" flex="50" class="border-bottom">
+                   <md-content layout-padding flex="100" layout-align="center end">
+                       
+                    </md-content>
+                </md-content>
+            </md-content>
+            <md-content layout="row" layout-align="center center" >
+                <form name="Clform" enctype="multipart/form-data">
+                    <div flex class="md-padding">
+                        <div layout="column" layout-align="center center" class="md-whiteframe-z3">
+                            <md-content layout-padding>
+                                <md-content layout-padding>
+                                    <md-input-container>
+                                        <div layout="row" layout-align="center center"  style="background-color:#EBEBFF">
+                                            <h3 class="md-title" style="padding-left:10px">Upload Banner</h3>
+                                        </div>
+                                    </md-input-container>
+                                </md-content>
+                               	
+
+							<md-content layout-padding>
+
+							     <md-input-container class="md-icon-float" >
+                                    <label style="position:relative"> Upload Banner</label>
+                                     <input type = "file" file-model = "myFile" accept=".jpg,.png,.gif,.jpeg"  /> 
+                                    
+                                    
+                                </md-input-container>
+							
+								
+							<md-content layout-padding layout="row" flex="100">
+								<md-content flex="100" >
+									<md-button class="md-raised md-primary"  ng-click="uploadFile()"><b>Upload Banner</b></md-button>
+                                    <md-button class="md-raised md-primary" style="background:rgb(255,64,129)"  href="#/mrformlist/"><b>Skip</b></md-button>
+								</md-content>
+							
+							</md-content>		
+                        </md-content>
+                        </div>
+                    </div>
+                </form>
+            </md-content>
+        </div>
+    </div>
+</main>

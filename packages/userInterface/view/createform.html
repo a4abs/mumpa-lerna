@@ -1,0 +1,92 @@
+<main class="mdl-layout__content" layout="column">
+    <!-- initializeAllListingForApproval(); -->
+    <div flex class="md-padding">
+        <div layout="column" class="md-whiteframe-z5" flex-sm- "100" flex-gt-sm="100" flex-gt-md="100" flex-gt-lg="100" style="margin-top:65px">
+			<md-content layout="row">
+                <md-content layout="row" flex="50" layout-align="left center" class="border-bottom">
+                   <md-content layout-padding flex="70" layout-align="left center">
+                        <md-button class="md-raised md-accent" ng-href="#/mrformlist"><b>View List</b></md-button>
+                    </md-content>
+                </md-content>
+                <md-content layout="row" flex="50" class="border-bottom">
+                   <md-content layout-padding flex="100" layout-align="center end">
+                        <md-button class="md-raised md-primary pull-right" ng-href="#/addclient"><b>&#x2b; Add Client</b></md-button>
+                    </md-content>
+                </md-content>
+            </md-content>
+            <md-content layout="row" layout-align="center center" >
+                <form name="Clform" enctype="multipart/form-data">
+                    <div flex class="md-padding">
+                        <div layout="column" layout-align="center center" class="md-whiteframe-z3">
+                            <md-content layout-padding>
+                                <md-content layout-padding>
+                                    <md-input-container>
+                                        <div layout="row" layout-align="center center"  style="background-color:#EBEBFF">
+                                            <h3 class="md-title" style="padding-left:10px">Create Form</h3>
+                                        </div>
+                                    </md-input-container>
+                                </md-content>
+                             
+								
+                               
+								<md-input-container class="md-icon-float">
+                                    <input type="text" placeholder="Form Title" ng-model="formdata.title" required>
+                                </md-input-container>
+                                <md-input-container class="md-icon-float">
+                                    <input type="text" placeholder="Description" ng-model="formdata.description" required>
+                                </md-input-container>
+								<md-input-container class="md-icon-float" style="padding-top: 20px;height: 100px;margin-left: 35px; width: 90%;">
+									<md-content layout="row">
+										<md-content layout="row" flex="33" layout-align="left center" style="margin-top:5px">
+												<h4 style="margin-top: 0;height: 15px;font-size:18px;font-family: Roboto;color:#666666;font-weight:bold;">Gratifications:</h4>
+										</md-content>
+										<md-content layout="row" flex="32" layout-align="center center">
+											<md-radio-group ng-model="formdata.gratification" layout="row">
+												<md-radio-button  value="points" aria-label="Points">
+												  Points
+												</md-radio-button>
+												<md-radio-button  value="cash" aria-label="Cash">
+												  Cash
+												</md-radio-button>
+										  </md-radio-group>
+										</md-content>
+										
+									</md-content>
+								</md-input-container>
+
+								<md-input-container class="md-icon-float">
+                                    <input type="text" placeholder="Value" ng-model="formdata.value" name="value" required>
+                                </md-input-container>
+
+								<md-input-container class="md-icon-float">
+									<h4 style="margin-top: 0;height: 15px;font-size:15px;font-family: Roboto;padding-left:35px;color:#666666;font-weight:bold;">Start Date</h4>
+									<div style="padding-left:7%;">
+										<input readonly="true" ng-model="formdata.start_date" style="width: 100%" aria-label="" kendodate2 required/>
+									</div>
+								</md-input-container>
+								<md-input-container class="md-icon-float">
+									<h4 style="margin-top: 0;height: 15px;font-size:15px;font-family: Roboto;padding-left:35px;color:#666666;font-weight:bold;">End Date</h4>
+									<div style="padding-left:7%;">
+										<input readonly="true" ng-model="formdata.end_date" style="width: 100%" aria-label="" kendodate2 required/>
+									</div>
+								</md-input-container>
+								
+							</md-content>
+
+							
+							<md-content layout-padding layout="row" flex="100">
+								<md-content flex="100" >
+									<md-button class="md-raised md-primary"  type="submit" ng-click="submit()"><b>Submit</b></md-button>
+								</md-content>
+								<!--<md-content flex="50" >
+									<md-button class="md-raised md-primary"><b>Edit</b></md-button>
+								</md-content>-->
+							</md-content>		
+                        </md-content>
+                        </div>
+                    </div>
+                </form>
+            </md-content>
+        </div>
+    </div>
+</main>

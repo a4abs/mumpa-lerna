@@ -1,0 +1,186 @@
+ <main ng-controller="mumpaController" class="mdl-layout__content" layout="column">
+       
+               
+                <!-- select category div open-->
+                <div flex class="md-padding">
+                    <div layout="column" layout-align="center center" class="md-whiteframe-z5" flex-sm- "100" flex-gt-sm="90" flex-gt-md="70" flex-gt-lg="50" style="margin-top: 70px;">
+                        <md-content layout-padding>
+                           
+                                <md-input-container style="font-family:Roboto">
+                                    <md-select placeholder="Select Category" style="background-color:#EBEBFF" ng-model="we" md-on-open="">
+                                        <md-option ng-value="category.name" ng-repeat="category in categories" ng-checked="selection.indexOf(category.name) > -1" ng-click="toggleSelection(category.name)">{{category.name}}
+                                        </md-option>
+                                    </md-select>
+                                    <span class="md-caption" ng-repeat="name in selection" style="display:inline-block,float:none;">{{ name }}</span>
+                                </md-input-container>
+                        
+                        </md-content>
+                    </div>
+                </div>
+                <!-- select category div closed-->
+                <div flex class="md-padding">
+                    <div layout="column" layout-align="center center" class="md-whiteframe-z5">
+                        <md-content layout-padding>
+                            
+                                <md-input-container class="md-icon-float">
+                                    <input ng-model="user.name" stop-event='touchstart' type="text" placeholder="Name">
+                                </md-input-container>
+                                <md-input-container class="md-icon-float">
+                                    <input ng-model="user.phone" type="text" pattern="-?[0-9]*(\.[0-9]+)?" placeholder="Phone Number">
+                                </md-input-container>
+                                <md-input-container>
+                                    <input ng-model="user.email" type="email" pattern="/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/" placeholder="Email (required)" ng-required="true" data-hint="You should really write something here">
+                                </md-input-container>
+                            
+                        </md-content>
+                    </div>
+                </div>
+                <div flex class="md-padding">
+                    <div layout="column" layout-align="center center" class="md-whiteframe-z5">
+                        <md-content layout-padding>
+                            
+                                <md-input-container class="md-icon-float">
+                                    <input ng-model="user.address1" type="text" placeholder="Address line 1">
+                                </md-input-container>
+                                <md-input-container class="md-icon-float">
+                                    <input ng-model="user.address2" type="text" placeholder="Address line 2">
+                                </md-input-container>
+                                <md-input-container class="md-icon-float">
+                                    <input ng-model="user.pin" type="text" pattern="-?[0-9]*(\.[0-9]+)?" placeholder="Pin">
+                                </md-input-container>
+                                <md-input-container class="md-icon-float">
+                                    <input ng-model="user.website" type="text" placeholder="Website">
+                                </md-input-container>
+                                <!-- GPS Coordinate -->
+                                <md-input-container class="md-icon-float">
+                                    <md-input-container>
+                                        <md-label style="margin-top:20px;font-family: Roboto;margin-left:35px">GPS coordinate:</md-label>
+                                    </md-input-container>
+                                    <div layout layout-sm="column">
+                                        <md-input-container>
+                                            <input ng-model="user.latitude" type="text" placeholder="Latitude">
+                                        </md-input-container>
+                                        <md-input-container>
+                                            <input ng-model="user.longitude" type="text" placeholder="Longitude">
+                                        </md-input-container>
+                                    </div>
+                                    <div layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+                                        <md-button class="md-raised md-accent md-raised md-default-theme">Get
+                                        </md-button>
+                                        <md-button class="md-raised md-accent">Clear</md-button>
+                                    </div>
+                                </md-input-container>
+                                <!-- GPS Coordinate -->
+                                <md-input-container class="md-icon-float">
+                                    <textarea class="mdl-textfield__input" ng-model="user.description" type="text" rows="3" placeholder="Description" style="padding-top: 20px;padding-left: 5px; height: 100px;margin-left: 35px;
+                            width: 90%;">
+                                    </textarea>
+                                </md-input-container>
+                           
+                        </md-content>
+                    </div>
+                </div>
+                <!-- days and timings open -->
+                <div flex class="md-padding">
+                    <div layout="column" layout-align="center center" class="md-whiteframe-z5">
+                        <md-content layout-padding>
+                            <md-input-container>
+                                <div layout="row" style="background-color:#EBEBFF">
+                                    <h3 class="md-title" style="padding-left:10px">Days Open</h3>
+                                </div>
+                                <div layout="row" layout-align="center center">
+                                    <div layout="column" flex="14" style="margin-top:0px">
+                                        <md-checkbox aria-label="all" ng-model="selectedAll" ng-click="checkAll()">Select All:</md-checkbox>
+                                    </div>
+                                    <div flex="14" style="margin-top:0px">
+                                        <md-radio-group>
+                                            <md-radio-button value="Timing">Copy Timing</md-radio-button>
+                                        </md-radio-group>
+                                    </div>
+                                </div>
+                                <div ng-repeat="day in Days">
+                                    <div layout="row" layout-align="center center">
+                                        <div layout="column" flex="14" style="margin-top:0px">
+                                            <md-checkbox ng-model="day.Selected">{{day.Name }}</md-checkbox>
+                                        </div>
+                                        <div layout="column" flex="14" style="margin-top:0px">
+                                            <!-- timepicker -->
+                                            <div>
+                                                <div class="k-header" style="width:150px;background-color:#FF4081;">
+                                                    <h4 style="height: 15px;font-size:15px;font-family: Roboto;padding-left:35px;color:#ffffff">Start time</h4>
+                                                    <input id="start" class="start" value="8:00 AM" style="width: 100%" />
+                                                </div>
+                                                <div class="k-header" style="width:150px;background-color:#FF4081;">
+                                                    <h4 style="margin-top: 0em;height: 15px;font-size: 15px;font-family:Roboto;padding-left:35px;color:#ffffff">End time</h4>
+                                                    <input id="end" class="end" value="8:30 PM" style="width: 100%;" />
+                                                </div>
+                                            </div>
+                                            <!-- timepicker -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </md-input-container>
+                        </md-content>
+                    </div>
+                </div>
+                
+                <script>
+                $(document).ready(function() {
+                    function startChange() {
+                        var startTime = start.value();
+
+                        if (startTime) {
+                            startTime = new Date(startTime);
+
+                            end.max(startTime);
+
+                            startTime.setMinutes(startTime.getMinutes() + this.options.interval);
+
+                            end.min(startTime);
+                            end.value(startTime);
+                        }
+                    }
+
+                    //init start timepicker
+                    var start = $(".start").kendoTimePicker({
+                        change: startChange
+                    }).data("kendoTimePicker");
+
+                    //init end timepicker
+                    var end = $(".end").kendoTimePicker().data("kendoTimePicker");
+
+                    //define min/max range
+                    start.min("8:00 AM");
+                    start.max("6:00 PM");
+
+                    //define min/max range
+                    end.min("8:00 AM");
+                    end.max("7:30 AM");
+                });
+                </script>
+                <!-- days and timing close -->
+                <!-- payment mode -->
+                <div flex class="md-padding">
+                    <div flex layout-fill layout-gt-sm="column" layout-align="center center" class="md-whiteframe-z5">
+                        <md-content layout-padding>
+                            <md-input-container>
+                                <div layout="row" style="background-color:#EBEBFF">
+                                    <h3 class="md-title" style="padding-left:10px">Mode of Payment</h3>
+                                </div>
+                                <div layout="column" id="checkboxList" flex offset="14">
+                                    <md-checkbox aria-label="Cash">Cash</md-checkbox>
+                                    <md-checkbox aria-label="Card">Card</md-checkbox>
+                                </div>
+                            </md-input-container>
+                        </md-content>
+                    </div>
+                </div>
+                <!-- payment mode -->
+                <!-- buttons -->
+                <div layout="row" layout-sm="column" layout-align="center center" layout-wrap flex-offet='66'>
+                    <md-button class="md-raised md-primary">PREVIEW</md-button>
+                    <md-button class="md-raised md-primary">SUBMIT</md-button>
+                </div>
+                <!-- buttons -->
+    
+    </main>

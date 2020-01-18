@@ -1,0 +1,45 @@
+<main class="mdl-layout__content" layout="column" ng-init="initializeReferDetails();">
+    <div flex class="md-padding">
+        <div layout="column" class="md-whiteframe-z5" flex-sm- "100" flex-gt-sm="100" flex-gt-md="100" flex-gt-lg="100" style="margin-top:65px">
+            <md-content layout="row">
+                <md-content layout="row" flex="70" layout-align="left center" class="border-bottom">
+                    <h5 style="margin-left:15px;padding-top: 10px;">MUMPA REFER DETAILS</h5>
+                </md-content>
+                <md-content layout="row" flex="30"  layout-align="center end" class="border-bottom">
+                    <md-input-container style="width:150px;">
+                        <label class="glyphicon glyphicon-search" style="color: #666666; font-size: 16px;">Search...</label>
+                        <input  ng-model="searchtxt" ng-change="initializeReferDetails()">
+                    </md-input-container>
+                    
+                </md-content>
+                
+            </md-content>
+                       
+            <md-content layout-padding>
+                <table class="table table-bordered table-striped table-hover referlist" style="margin-bottom:20px;">
+                    <thead>
+                        <tr>
+                            <th>S. NO.</th>
+                            <th>REFEREE NAME</th>
+                            <th>REFEREE EMAIL</th>
+                            <th>REFERRER NAME</th>
+                            <th>REFERRER EMAIL</th>
+                        </tr>
+                    </thead>
+                    <tbody infinite-scroll="scrollReferDetails()">
+                        <tr ng-repeat="refer in refer_details">
+                            <td class="capitalize">{{$index+1}}</td>
+                            <td class="capitalize">{{refer.referee_name}}</td>
+                            <td>{{refer.referee_email}}</td>
+                            <td class="capitalize">{{refer.referrer_name}}</td>
+                            <td>{{refer.referrer_email}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="infinite-wrapper" ng-show="infiniteLoader">
+                    <img src="assets/img/infinite_loader.gif">
+                </div>
+            </md-content>
+        </div>
+    </div>
+</main>

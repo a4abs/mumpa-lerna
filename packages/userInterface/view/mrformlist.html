@@ -1,0 +1,54 @@
+<main class="mdl-layout__content" layout="column">
+    <!-- initializeAllListingForApproval(); -->
+    <div flex class="md-padding">
+        <div layout="column" class="md-whiteframe-z5" flex-sm- "100" flex-gt-sm="100" flex-gt-md="100" flex-gt-lg="100" style="margin-top:65px">
+			<md-content layout="row">
+                <md-content layout="row" flex="25" layout-align="left center" class="border-bottom">
+                   <md-content layout-padding flex="70" layout-align="left center">
+                        <md-button class="md-raised md-accent" ng-href="#/createform"><b>&#x2b; Create Form</b></md-button>
+                    </md-content>
+                </md-content>
+                <md-content layout="row" flex="50" class="border-bottom">
+					<md-content layout-padding flex="100" layout-align="center center">
+					   <md-input-container style="width:100%;padding-bottom:0;">
+							<label class="glyphicon glyphicon-search" style="color: #666666; font-size: 16px;"> Search...</label>
+							<input ng-model="search">
+						</md-input-container>
+					</md-content>
+                </md-content>
+				<md-content layout="row" flex="25" class="border-bottom">
+                   <md-content layout-padding flex="100" layout-align="center end">
+                        <md-button class="md-raised md-primary pull-right" ng-href="#/addclient"><b>&#x2b; Add Client</b></md-button>
+                    </md-content>
+                </md-content>
+            </md-content>
+             <md-content layout-padding style="display:block;">
+                <table class="table table-bordered table-striped table-hover listinglist" style="margin-bottom:20px;">
+                     <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Status</th>
+                            <th>Updated</th>
+                            <th></th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="form in cllist | filter:search">
+							<td id="{{form.id}}"><a href="#/viewform/{{form.id}}">{{form.id}}</a></td>
+							<td class="capitalize">{{form.title}}</td>
+							<td class="capitalize">{{form.description}}</td>
+							<td class="capitalize">{{form.status}}</td>
+							<td class="capitalize">{{form.updated | date:'dd MMMM yyyy'}}</td>
+							<td>
+								<md-button class="md-raised md-primary" ng-click="deleteForm(form.id)">Detele</md-button>
+							</td>
+						</tr>
+                    </tbody>
+                </table>
+            </md-content>
+        </div>
+    </div>
+</main>

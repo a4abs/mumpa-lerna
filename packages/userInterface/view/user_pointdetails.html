@@ -1,0 +1,51 @@
+<main class="mdl-layout__content" layout="column" ng-init="initUserDetails();">
+    <div flex class="md-padding">
+        <div layout="column" class="md-whiteframe-z5" flex-sm- "100" flex-gt-sm="100" flex-gt-md="100" flex-gt-lg="100" style="margin-top:65px">
+            <md-content layout="row" layout-align="left center" class="border-bottom" >
+                <h5 style="margin-left:15px;">MUMPA USER EARNED POINTS</h5>
+            </md-content>
+            <md-content layout="column" layout-align="center start">
+                <h4 style="margin:20px;" class="capitalize"><span style="color:#6F6F6E;">{{userObj.name}}</span></h4>
+                <h6 style="margin:20px;margin-top:0px;" > <span style="color:#6F6F6E;">TOTAL POINTS EARNED:</span><span style="margin-left:15px;">{{userObj.Total}}</span></h6>
+            </md-content>
+
+            <md-content layout-padding flex="50">
+                
+                <table  class="table table-bordered table-striped table-hover userdetails" style="margin-bottom:20px;" >
+                    <thead>
+                        <tr>
+                            <th style="vertical-align: middle;">USER ACTIVITY LIST</th>
+                            <th style="vertical-align: middle;">EARNED POINTS</th>
+                        </tr>
+                    </thead>
+                    <tbody>                        
+                        <tr>
+                            <td style="vertical-align: middle;" class="capitalize">APP DOWNLOAD</td>
+                            <td style="vertical-align: middle;">{{userObj.PointsForGetReferred}}</td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: middle;" class="capitalize">REFER A FRIEND</td>
+                            <td style="vertical-align: middle;">{{userObj.PointsForRefer}}</td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: middle;" class="capitalize">ADD A LISTING</td>
+                            <td style="vertical-align: middle;">{{userObj.PointsForListing + userObj.PointsForimageupload}}</td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: middle;" class="capitalize">WRITE A REVIEW</td>
+                            <td style="vertical-align: middle;">{{userObj.PointsForReview}}</td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: middle;" class="capitalize">START A DISCUSSION</td>
+                            <td style="vertical-align: middle;">{{userObj.PointsForStartingDiscussion}}</td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: middle;" class="capitalize">COMMENT/REPLY/LIKE IN PARENTSHIP</td>
+                            <td style="vertical-align: middle;">{{userObj.PointsForReply + userObj.PointsForComments + userObj.PointsForDiscussionLikes + userObj.PointsForCommentLikes}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </md-content>
+        </div>
+    </div>
+</main>

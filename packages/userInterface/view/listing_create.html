@@ -1,0 +1,282 @@
+<main class="mdl-layout__content" layout="column" ng-init="getAllCategories();getAllStates();">
+    <div flex class="md-padding">
+        <div layout="column" class="md-whiteframe-z3" flex-sm- "100" flex-gt-sm="100" flex-gt-md="100" flex-gt-lg="100" style="margin-top:65px">
+            <md-content layout="row" layout-align="left center" class="border-bottom">
+                <h5 style="margin-left:15px;">CREATE LISTING</h5>
+            </md-content>
+        </div>
+    </div>
+    <div flex class="md-padding">
+        <div layout="column" layout-align="center center" class="md-whiteframe-z5" flex-sm- "100" flex-gt-sm="90" flex-gt-md="70" flex-gt-lg="50">
+            <md-content layout-padding>
+                <md-content layout-padding>
+                    <md-input-container>
+                        <div layout="row" style="background-color:#EBEBFF">
+                            <h3 class="md-title" style="padding-left:10px">CATEGORY DETAILS</h3>
+                        </div>
+                    </md-input-container>
+                </md-content>
+                <md-input-container style="font-family:Roboto">
+                    <md-select placeholder="Select Category"  ng-model="we" md-on-open="">
+                        <md-option ng-value="category.category" ng-repeat="category in categories" ng-checked="selection.indexOf(category) > -1" ng-click="toggleSelection(category)">{{category.category}}
+                        </md-option>
+                    </md-select>
+                    <span class="md-caption" ng-repeat="category in selection" style="display:inline-block,float:none;">{{ category.category }}</span>
+                </md-input-container>
+            </md-content>
+        </div>
+    </div>
+    <div flex class="md-padding">
+        <div layout="column" layout-align="center center" class="md-whiteframe-z5">
+            <md-content layout-padding>
+                <md-content layout-padding>
+                    <md-input-container>
+                        <div layout="row" style="background-color:#EBEBFF">
+                            <h3 class="md-title" style="padding-left:10px">LISTING DETAILS</h3>
+                        </div>
+                    </md-input-container>
+                </md-content>
+                <md-input-container class="md-icon-float">
+                    <input ng-model="listingObj.name" stop-event='touchstart' type="text" placeholder="Business Name">
+                </md-input-container>
+                <md-input-container class="md-icon-float">
+                    <input ng-model="listingObj.phone_no" type="text" pattern="-?[0-9]*(\.[0-9]+)?" placeholder="Primary Phone Number">
+                </md-input-container>
+                <md-input-container class="md-icon-float">
+                    <input ng-model="listingObj.phone_no2" type="text" pattern="-?[0-9]*(\.[0-9]+)?" placeholder="Secondary Phone Number(Optional)">
+                </md-input-container>
+                <md-input-container>
+                    <input ng-model="listingObj.email" type="email"  placeholder="Email (required)" ng-required="true" data-hint="You should really write something here"><!-- pattern="/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/" -->
+                </md-input-container>
+                <md-input-container class="md-icon-float">
+                    <input ng-model="listingObj.address.line1" type="text" placeholder="Address line 1" required>
+                </md-input-container>
+                <md-input-container class="md-icon-float">
+                    <input ng-model="listingObj.address.line2" type="text" placeholder="Address line 2">
+                </md-input-container>
+                <!-- <md-input-container class="md-icon-float" style="padding-bottom:0px;">
+                    <div layout layout-sm="column">
+                        <md-input-container>
+                            <input ng-model="listingObj.address.city" type="text" placeholder="City">
+                        </md-input-container>
+                        <md-input-container>
+                            <input ng-model="listingObj.address.state" type="text" placeholder="State">
+                        </md-input-container>
+                    </div>
+                </md-input-container> -->
+                <md-select placeholder="Select State" ng-model="listingObj.address.state" ng-change="getCitiesOfStates(listingObj.address.state);"   required>
+                    <md-option ng-repeat="state in allstates">{{state.state}}</md-option>
+                </md-select>
+                <md-select placeholder="Select City" ng-model="listingObj.address.city" ng-show="listingObj.address.state" required>
+                    <md-option ng-repeat="city in allcities">{{city.city}}</md-option>
+                </md-select>
+                <md-input-container class="md-icon-float">
+                    <input ng-model="listingObj.address.pincode" type="text" pattern="-?[0-9]*(\.[0-9]+)?" placeholder="Pin">
+                </md-input-container>
+                <md-input-container class="md-icon-float">
+                    <input ng-model="listingObj.address.website" type="text" placeholder="Website">
+                </md-input-container>
+
+
+                
+                <!-- GPS Coordinate -->
+                <md-input-container class="md-icon-float">
+                    <md-input-container>
+                        <md-label style="margin-top:20px;font-family: Roboto;margin-left:35px">GPS coordinate:</md-label>
+                    </md-input-container>
+                    <div layout layout-sm="column">
+                        <md-input-container>
+                            <input ng-model="listingObj.latitude" type="text" placeholder="Latitude">
+                        </md-input-container>
+                        <md-input-container>
+                            <input ng-model="listingObj.longitude" type="text" placeholder="Longitude">
+                        </md-input-container>
+                    </div>
+                    <div layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+                        <md-button class="md-raised md-accent md-raised md-default-theme" ng-show="getCordinatebtn" ng-click="getGeoCoordinates()">Get
+                        </md-button>
+                        <md-button class="md-raised md-accent" ng-show="!getCordinatebtn" ng-click="clearGeoCoordinates()">Clear</md-button>
+                    </div>
+                </md-input-container>
+                <!-- GPS Coordinate -->
+                <md-input-container class="md-icon-float">
+                    <textarea class="mdl-textfield__input" ng-model="listingObj.description" type="text" rows="3" placeholder="Description" style="padding-top: 20px;padding-left: 5px; height: 100px;margin-left: 35px;
+                            width: 90%;">
+                    </textarea>
+                </md-input-container>
+            </md-content>
+        </div>
+    </div>
+    <div flex class="md-padding">
+        <div layout="column" layout-align="center center" class="md-whiteframe-z5">
+            <md-content layout-padding>
+                <md-content>
+                    <md-content layout-padding>
+                        <md-input-container>
+                            <div layout="row" style="background-color:#EBEBFF">
+                                <h3 class="md-title" style="padding-left:10px">OPEN CLOSE TIMING DETAILS</h3>
+                            </div>
+                        </md-input-container>
+                    </md-content>
+                    <div layout="row" layout-align="center center">
+                        <div layout="column" flex="14" style="margin-top:0px">
+                            <md-checkbox aria-label="all" ng-model="listingObj.opendays.all.day" ng-click="checkAll(!listingObj.opendays.all.day)">Custom Timing</md-checkbox>
+                        </div>
+                    </div>
+
+                    <div layout="row" layout-align="center center" ng-show="!listingObj.opendays.all.day" ng-init="listingObj.opendays.all.day=false">
+                        <div style="min-width:120px;">
+                            <h4 style="margin-top: 0;height: 15px;font-size:15px;font-family: Roboto;padding-left:35px;">Daily Time</h4>
+                        </div>
+                        <div class="k-header" style="width:150px;background-color:#FF4081;margin-left:30px;">
+                            <h4 style="margin-top: 0;height: 15px;font-size:15px;font-family: Roboto;padding-left:35px;color:#ffffff">Start time</h4>
+                            <input class="start" ng-model="listingObj.opendays.all.open" value="8:00 AM" style="width: 100%" kendotime/>
+                        </div>
+                        <div class="k-header" style="width:150px;background-color:#FF4081;margin-left:30px;">
+                            <h4 style="margin-top: 0em;height: 15px;font-size: 15px;font-family:Roboto;padding-left:35px;color:#ffffff">End time</h4>
+                            <input class="end" ng-model="listingObj.opendays.all.close" style="width: 100%;" kendotime />
+                        </div>
+                    </div>
+
+                    <div layout="column" layout-align="center center" class="md-whiteframe-z5" ng-show="listingObj.opendays.all.day" >
+                        <div layout="row" layout-align="space-around center" style="margin-top:10px">
+                            <div style="min-width:120px;">
+                                <md-checkbox ng-model="listingObj.opendays.mon.day">Monday</md-checkbox>
+                            </div>
+                            <div class="k-header" style="width:150px;background-color:#FF4081;margin-left:30px;">
+                                <h4 style="margin-top: 0;height: 15px;font-size:15px;font-family: Roboto;padding-left:35px;color:#ffffff">Start time</h4>
+                                <input class="start" ng-model="listingObj.opendays.mon.open" value="8:00 AM" style="width: 100%" kendotime />
+                            </div>
+
+                            <div class="k-header" style="width:150px;background-color:#FF4081;margin-left:30px;">
+                                <h4 style="margin-top: 0em;height: 15px;font-size: 15px;font-family:Roboto;padding-left:35px;color:#ffffff">End time</h4>
+                                <input class="end" ng-model="listingObj.opendays.mon.close" value="8:30 PM" style="width: 100%;" kendotime />
+                            </div>
+                        </div>
+                        <div layout="row" layout-align="space-around center" style="margin-top:10px">
+                            <div style="min-width:120px;">
+                                <md-checkbox ng-model="listingObj.opendays.tue.day">Tuesday</md-checkbox>
+                            </div>
+                            <div class="k-header" style="width:150px;background-color:#FF4081;margin-left:30px;">
+                                <h4 style="margin-top: 0;height: 15px;font-size:15px;font-family: Roboto;padding-left:35px;color:#ffffff">Start time</h4>
+                                <input class="start" ng-model="listingObj.opendays.tue.open" value="8:00 AM" style="width: 100%" kendotime />
+                            </div>
+
+                            <div class="k-header" style="width:150px;background-color:#FF4081;margin-left:30px;">
+                                <h4 style="margin-top: 0em;height: 15px;font-size: 15px;font-family:Roboto;padding-left:35px;color:#ffffff">End time</h4>
+                                <input class="end" ng-model="listingObj.opendays.tue.close" value="8:30 PM" style="width: 100%;" kendotime />
+                            </div>
+                        </div>
+                        <div layout="row" layout-align="space-around center" style="margin-top:10px">
+                            <div style="min-width:120px;">
+                                <md-checkbox ng-model="listingObj.opendays.wed.day">Wednesday</md-checkbox>
+                            </div>
+                            <div class="k-header" style="width:150px;background-color:#FF4081;margin-left:30px;">
+                                <h4 style="margin-top: 0;height: 15px;font-size:15px;font-family: Roboto;padding-left:35px;color:#ffffff">Start time</h4>
+                                <input class="start" ng-model="listingObj.opendays.wed.open" value="8:00 AM" style="width: 100%" kendotime />
+                            </div>
+
+                            <div class="k-header" style="width:150px;background-color:#FF4081;margin-left:30px;">
+                                <h4 style="margin-top: 0em;height: 15px;font-size: 15px;font-family:Roboto;padding-left:35px;color:#ffffff">End time</h4>
+                                <input class="end" ng-model="listingObj.opendays.wed.close" value="8:30 PM" style="width: 100%;" kendotime />
+                            </div>
+                        </div>
+                        <div layout="row" layout-align="space-around center" style="margin-top:10px">
+                            <div style="min-width:120px;">
+                                <md-checkbox ng-model="listingObj.opendays.thu.day">Thursday</md-checkbox>
+                            </div>
+                            <div class="k-header" style="width:150px;background-color:#FF4081;margin-left:30px;">
+                                <h4 style="margin-top: 0;height: 15px;font-size:15px;font-family: Roboto;padding-left:35px;color:#ffffff">Start time</h4>
+                                <input class="start" ng-model="listingObj.opendays.thu.open" value="8:00 AM" style="width: 100%" kendotime />
+                            </div>
+
+                            <div class="k-header" style="width:150px;background-color:#FF4081;margin-left:30px;">
+                                <h4 style="margin-top: 0em;height: 15px;font-size: 15px;font-family:Roboto;padding-left:35px;color:#ffffff">End time</h4>
+                                <input class="end" ng-model="listingObj.opendays.thu.close" value="8:30 PM" style="width: 100%;" kendotime />
+                            </div>
+                        </div>
+                        <div layout="row" layout-align="space-around center" style="margin-top:10px">
+                            <div style="min-width:120px;">
+                                <md-checkbox ng-model="listingObj.opendays.fri.day">Friday</md-checkbox>
+                            </div>
+                            <div class="k-header" style="width:150px;background-color:#FF4081;margin-left:30px;">
+                                <h4 style="margin-top: 0;height: 15px;font-size:15px;font-family: Roboto;padding-left:35px;color:#ffffff">Start time</h4>
+                                <input class="start" ng-model="listingObj.opendays.fri.open" value="8:00 AM" style="width: 100%" kendotime />
+                            </div>
+
+                            <div class="k-header" style="width:150px;background-color:#FF4081;margin-left:30px;">
+                                <h4 style="margin-top: 0em;height: 15px;font-size: 15px;font-family:Roboto;padding-left:35px;color:#ffffff">End time</h4>
+                                <input class="end" ng-model="listingObj.opendays.fri.close" value="8:30 PM" style="width: 100%;" kendotime />
+                            </div>
+                        </div>
+                        <div layout="row" layout-align="space-around center" style="margin-top:10px">
+                            <div style="min-width:120px;">
+                                <md-checkbox ng-model="listingObj.opendays.sat.day">Saturday</md-checkbox>
+                            </div>
+                            <div class="k-header" style="width:150px;background-color:#FF4081;margin-left:30px;">
+                                <h4 style="margin-top: 0;height: 15px;font-size:15px;font-family: Roboto;padding-left:35px;color:#ffffff">Start time</h4>
+                                <input class="start" ng-model="listingObj.opendays.sat.open" value="8:00 AM" style="width: 100%" kendotime />
+                            </div>
+
+                            <div class="k-header" style="width:150px;background-color:#FF4081;margin-left:30px;">
+                                <h4 style="margin-top: 0em;height: 15px;font-size: 15px;font-family:Roboto;padding-left:35px;color:#ffffff">End time</h4>
+                                <input class="end" ng-model="listingObj.opendays.sat.close" value="8:30 PM" style="width: 100%;" kendotime />
+                            </div>
+                        </div>
+                        <div layout="row" layout-align="space-around center" style="margin-top:10px">
+                            <div style="min-width:120px;">
+                                <md-checkbox ng-model="listingObj.opendays.sun.day">Sunday</md-checkbox>
+                            </div>
+                            <div class="k-header" style="width:150px;background-color:#FF4081;margin-left:30px;">
+                                <h4 style="margin-top: 0;height: 15px;font-size:15px;font-family: Roboto;padding-left:35px;color:#ffffff">Start time</h4>
+                                <input class="start" ng-model="listingObj.opendays.sun.open" value="8:00 AM" style="width: 100%" kendotime />
+                            </div>
+
+                            <div class="k-header" style="width:150px;background-color:#FF4081;margin-left:30px;">
+                                <h4 style="margin-top: 0em;height: 15px;font-size: 15px;font-family:Roboto;padding-left:35px;color:#ffffff">End time</h4>
+                                <input class="end" ng-model="listingObj.opendays.sun.close" value="8:30 PM" style="width: 100%;" kendotime />
+                            </div>
+                        </div>
+                    </div>
+
+                </md-content>
+            </md-content>
+        </div>
+    </div>
+    <div flex class="md-padding">
+        <div flex layout-fill layout-gt-sm="column" layout-align="center center" class="md-whiteframe-z5">
+            <md-content layout-padding>
+                <md-input-container>
+                    <div layout="row" style="background-color:#EBEBFF">
+                        <h3 class="md-title" style="padding-left:10px">HOME DELIVERY</h3>
+                    </div>
+                    <md-radio-group layout="row" ng-model="listingObj.delivery">
+                        <md-radio-button value="true" >Yes</md-radio-button>
+                        <md-radio-button value="false">No </md-radio-button>
+                    </md-radio-group>
+                </md-input-container>
+            </md-content>
+        </div>
+    </div>
+    <div flex class="md-padding">
+        <div flex layout-fill layout-gt-sm="column" layout-align="center center" class="md-whiteframe-z5">
+
+
+            <md-content layout-padding>
+                <md-input-container>
+                    <div layout="row" style="background-color:#EBEBFF">
+                        <h3 class="md-title" style="padding-left:10px">MODE OF PAYMENT</h3>
+                    </div>
+                    <div layout="column" id="checkboxList" flex offset="14">
+                        <md-checkbox aria-label="Cash" ng-model="listingObj.payment.cash">Cash</md-checkbox>
+                        <md-checkbox aria-label="Card" ng-model="listingObj.payment.card">Card</md-checkbox>
+                    </div>
+                </md-input-container>
+            </md-content>
+        </div>
+    </div>
+    <div layout="row" layout-sm="column" layout-align="center center" layout-wrap flex-offet='66' style="margin-bottom:20px;">
+        <md-button class="md-raised md-primary">PREVIEW</md-button>
+        <md-button class="md-raised md-primary" ng-click="addListToDb();">SUBMIT</md-button>
+    </div>
+</main>

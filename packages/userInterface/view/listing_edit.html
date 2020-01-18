@@ -1,0 +1,288 @@
+
+<main class="mdl-layout__content" layout="column" ng-init="getListingDetails();">
+    <div flex class="md-padding">
+        <div layout="column" class="md-whiteframe-z3" flex-sm- "100" flex-gt-sm="100" flex-gt-md="100" flex-gt-lg="100" style="margin-top:65px">
+            <md-content layout="row" layout-align="left center" class="border-bottom" >
+                <h5 style="margin-left:15px;">EDIT LISTING DETAILS</h5>
+            </md-content>
+
+            <md-content layout="column" layout-align="left start" class="border-bottom" >
+                <h6 style="margin:10px 0px 5px 20px;" > <span style="font-weight:bold">Listing Id:</span><span style="margin-left:15px;color:#6F6F6E;">{{listing.listing_details.listing_id}}</span></h6>
+            </md-content>
+        </div>
+    <!-- </div>
+    <div flex class="md-padding"> -->
+        <div layout="column" layout-align="center center" class="md-whiteframe-z3" flex-sm- "100" flex-gt-sm="90" flex-gt-md="70" flex-gt-lg="50" style="margin-top:10px;">
+            <md-content layout-padding>
+                <md-content layout-padding>
+                    <md-input-container>
+                        <div layout="row" style="background-color:#EBEBFF">
+                            <h3 class="md-title" style="padding-left:10px">CATEGORY DETAILS</h3>
+                        </div>
+                    </md-input-container>
+                </md-content>
+                <md-input-container style="font-family:Roboto">
+                    <md-select placeholder="Select Category" ng-model="we" md-on-open="">
+                        <md-option ng-value="cat.category" ng-repeat="cat in categories" ng-checked ="cat.preselected" ng-click="toggleSelection(cat)">{{cat.category}}
+                        </md-option>
+                    </md-select>
+                    <span class="md-caption" ng-repeat="cat in selection" style="display:inline-block,float:none;">{{ cat.category }}</span>
+                </md-input-container>
+                <!-- <md-input-container style="font-family:Roboto">
+                    <md-select placeholder="Select Category" ng-model="we" md-on-open="">
+                        <md-option ng-value="category.category" ng-repeat="category in categories" ng-checked ="selection.indexOf(category)>-1" ng-click="toggleSelection(category)">{{category.category}}
+                        </md-option>
+                    </md-select>
+                    <span class="md-caption" ng-repeat="category in selection" style="display:inline-block,float:none;">{{ category.category }}</span>
+                </md-input-container> -->
+            </md-content>
+        </div>
+    </div>
+    <div flex class="md-padding">
+        <div layout="column" layout-align="center center" class="md-whiteframe-z3">
+            <md-content layout-padding>
+                <md-content layout-padding>
+                    <md-input-container>
+                        <div layout="row" style="background-color:#EBEBFF">
+                            <h3 class="md-title" style="padding-left:10px">LISTING DETAILS</h3>
+                        </div>
+                    </md-input-container>
+                </md-content>
+                <md-input-container class="md-icon-float">
+                    <input ng-model="listing.listing_details.business_name" stop-event='touchstart' type="text" placeholder="Business Name">
+                </md-input-container>
+                <md-input-container class="md-icon-float">
+                    <input ng-model="listing.listing_details.phone_no" type="text" pattern="-?[0-9]*(\.[0-9]+)?" placeholder="Primary Phone Number">
+                </md-input-container>
+                <md-input-container class="md-icon-float">
+                    <input ng-model="listing.listing_details.phone_no2" type="text" pattern="-?[0-9]*(\.[0-9]+)?" placeholder="Secondary Phone Number(Optional)">
+                </md-input-container>
+                <md-input-container>
+                    <input ng-model="listing.listing_details.bussines_email" type="email"  placeholder="Email (required)" ng-required="true" data-hint="You should really write something here"><!-- pattern="/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/" -->
+                </md-input-container>
+
+                <md-input-container class="md-icon-float">
+                    <input ng-model="listing.listing_details.address" type="text" placeholder="Address line 1" required>
+                </md-input-container>
+                <md-input-container class="md-icon-float">
+                    <input ng-model="listing.listing_details.address2" type="text" placeholder="Address line 2">
+                </md-input-container>
+                <md-input-container class="md-icon-float" style="padding-bottom:0px;">
+                    <div layout layout-sm="column">
+                        <md-input-container>
+                            <input ng-model="listing.listing_details.city" type="text" placeholder="City">
+                        </md-input-container>
+                        <md-input-container>
+                            <input ng-model="listing.listing_details.state" type="text" placeholder="State">
+                        </md-input-container>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-icon-float">
+                    <input ng-model="listing.listing_details.pin" type="text" pattern="-?[0-9]*(\.[0-9]+)?" placeholder="Pin">
+                </md-input-container>
+                <md-input-container class="md-icon-float">
+                    <input ng-model="listing.listing_details.website" type="text" placeholder="Website">
+                </md-input-container>
+                
+                <!-- GPS Coordinate -->
+                <md-input-container class="md-icon-float">
+                    <md-input-container>
+                        <md-label style="margin-top:20px;font-family: Roboto;margin-left:35px">GPS coordinate:</md-label>
+                    </md-input-container>
+                    <div layout layout-sm="column">
+                        <md-input-container>
+                            <input ng-model="listing.listing_details.latitude" type="text" placeholder="Latitude">
+                        </md-input-container>
+                        <md-input-container>
+                            <input ng-model="listing.listing_details.longitude" type="text" placeholder="Longitude">
+                        </md-input-container>
+                    </div>
+                    <div layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+                        <md-button class="md-raised md-accent md-raised md-default-theme" ng-show="!listing.listing_details.latitude" ng-click="getGeoCoordinatesEdit()">Get
+                        </md-button>
+                        <md-button class="md-raised md-accent" ng-show="listing.listing_details.latitude" ng-click="clearGeoCoordinatesEdit()">Clear</md-button>
+                    </div>
+                </md-input-container>
+                <!-- GPS Coordinate -->
+                <md-input-container class="md-icon-float">
+                    <textarea class="mdl-textfield__input" ng-model="listing.listing_details.description" type="text" rows="3" placeholder="Description" style="padding-top: 20px;padding-left: 5px; height: 100px;margin-left: 35px;
+                            width: 90%;">
+                    </textarea>
+                </md-input-container>
+            </md-content>
+        </div>
+    </div>
+    <div flex class="md-padding">
+        <div layout="column" layout-align="center center" class="md-whiteframe-z3">
+            <md-content layout-padding>
+                <md-content>
+                    <md-content layout-padding>
+                        <md-input-container>
+                            <div layout="row" style="background-color:#EBEBFF">
+                                <h3 class="md-title" style="padding-left:10px">OPEN CLOSE TIMING DETAILS</h3>
+                            </div>
+                        </md-input-container>
+                    </md-content>
+                    <!-- <div layout="row" layout-align="center center">
+                        <div layout="column" flex="14" style="margin-top:0px">
+                            <md-checkbox aria-label="all" ng-model="listingObj.opendays.all.day" ng-click="checkAll(!listingObj.opendays.all.day)">Custom Timing</md-checkbox>
+                        </div>
+                    </div>
+
+                    <div layout="row" layout-align="center center" ng-show="!listingObj.opendays.all.day" ng-init="listingObj.opendays.all.day=true">
+                        <div style="min-width:120px;">
+                            <h4 style="margin-top: 0;height: 15px;font-size:15px;font-family: Roboto;padding-left:35px;">Daily Time</h4>
+                        </div>
+                        <div class="k-header" style="width:150px;background-color:#FF4081;margin-left:30px;">
+                            <h4 style="margin-top: 0;height: 15px;font-size:15px;font-family: Roboto;padding-left:35px;color:#ffffff">Start time</h4>
+                            <input class="start" ng-model="" value="8:30 AM" style="width: 100%" kendotime/>
+                        </div>
+                        <div class="k-header" style="width:150px;background-color:#FF4081;margin-left:30px;">
+                            <h4 style="margin-top: 0em;height: 15px;font-size: 15px;font-family:Roboto;padding-left:35px;color:#ffffff">End time</h4>
+                            <input class="end" ng-model="" value="8:30 AM" style="width: 100%;" kendotime />
+                        </div>
+                    </div> -->
+
+                    <div layout="column" layout-align="center center" class="md-whiteframe-z3"><!-- ng-show="listingObj.opendays.all.day" -->
+                        <div layout="row" layout-align="space-around center" style="margin-top:10px">
+                            <div style="min-width:120px;">
+                                <md-checkbox ng-model="open_close_details[0].list_open">Monday</md-checkbox>
+                            </div>
+                            <div class="k-header" style="width:150px;background-color:#FF4081;margin-left:30px;">
+                                <h4 style="margin-top: 0;height: 15px;font-size:15px;font-family: Roboto;padding-left:35px;color:#ffffff">Start time</h4>
+                                <input class="start" ng-model="open_close_details[0].open" style="width: 100%" kendotime />
+                            </div>
+
+                            <div class="k-header" style="width:150px;background-color:#FF4081;margin-left:30px;">
+                                <h4 style="margin-top: 0em;height: 15px;font-size: 15px;font-family:Roboto;padding-left:35px;color:#ffffff">End time</h4>
+                                <input class="end" ng-model="open_close_details[0].close" style="width: 100%;" kendotime />
+                            </div>
+                        </div>
+                        <div layout="row" layout-align="space-around center" style="margin-top:10px">
+                            <div style="min-width:120px;">
+                                <md-checkbox ng-model="open_close_details[1].list_open">Tuesday</md-checkbox>
+                            </div>
+                            <div class="k-header" style="width:150px;background-color:#FF4081;margin-left:30px;">
+                                <h4 style="margin-top: 0;height: 15px;font-size:15px;font-family: Roboto;padding-left:35px;color:#ffffff">Start time</h4>
+                                <input class="start" ng-model="open_close_details[1].open" style="width: 100%" kendotime />
+                            </div>
+
+                            <div class="k-header" style="width:150px;background-color:#FF4081;margin-left:30px;">
+                                <h4 style="margin-top: 0em;height: 15px;font-size: 15px;font-family:Roboto;padding-left:35px;color:#ffffff">End time</h4>
+                                <input class="end" ng-model="open_close_details[1].close" style="width: 100%;" kendotime />
+                            </div>
+                        </div>
+                        <div layout="row" layout-align="space-around center" style="margin-top:10px">
+                            <div style="min-width:120px;">
+                                <md-checkbox ng-model="open_close_details[2].list_open">Wednesday</md-checkbox>
+                            </div>
+                            <div class="k-header" style="width:150px;background-color:#FF4081;margin-left:30px;">
+                                <h4 style="margin-top: 0;height: 15px;font-size:15px;font-family: Roboto;padding-left:35px;color:#ffffff">Start time</h4>
+                                <input class="start" ng-model="open_close_details[2].open" style="width: 100%" kendotime />
+                            </div>
+
+                            <div class="k-header" style="width:150px;background-color:#FF4081;margin-left:30px;">
+                                <h4 style="margin-top: 0em;height: 15px;font-size: 15px;font-family:Roboto;padding-left:35px;color:#ffffff">End time</h4>
+                                <input class="end" ng-model="open_close_details[2].close" style="width: 100%;" kendotime />
+                            </div>
+                        </div>
+                        <div layout="row" layout-align="space-around center" style="margin-top:10px">
+                            <div style="min-width:120px;">
+                                <md-checkbox ng-model="open_close_details[3].list_open">Thursday</md-checkbox>
+                            </div>
+                            <div class="k-header" style="width:150px;background-color:#FF4081;margin-left:30px;">
+                                <h4 style="margin-top: 0;height: 15px;font-size:15px;font-family: Roboto;padding-left:35px;color:#ffffff">Start time</h4>
+                                <input class="start" ng-model="open_close_details[3].open" style="width: 100%" kendotime />
+                            </div>
+
+                            <div class="k-header" style="width:150px;background-color:#FF4081;margin-left:30px;">
+                                <h4 style="margin-top: 0em;height: 15px;font-size: 15px;font-family:Roboto;padding-left:35px;color:#ffffff">End time</h4>
+                                <input class="end" ng-model="open_close_details[3].close" style="width: 100%;" kendotime />
+                            </div>
+                        </div>
+                        <div layout="row" layout-align="space-around center" style="margin-top:10px">
+                            <div style="min-width:120px;">
+                                <md-checkbox ng-model="open_close_details[4].list_open">Friday</md-checkbox>
+                            </div>
+                            <div class="k-header" style="width:150px;background-color:#FF4081;margin-left:30px;">
+                                <h4 style="margin-top: 0;height: 15px;font-size:15px;font-family: Roboto;padding-left:35px;color:#ffffff">Start time</h4>
+                                <input class="start" ng-model="open_close_details[4].open" style="width: 100%" kendotime />
+                            </div>
+
+                            <div class="k-header" style="width:150px;background-color:#FF4081;margin-left:30px;">
+                                <h4 style="margin-top: 0em;height: 15px;font-size: 15px;font-family:Roboto;padding-left:35px;color:#ffffff">End time</h4>
+                                <input class="end" ng-model="open_close_details[4].close" style="width: 100%;" kendotime />
+                            </div>
+                        </div>
+                        <div layout="row" layout-align="space-around center" style="margin-top:10px">
+                            <div style="min-width:120px;">
+                                <md-checkbox ng-model="open_close_details[5].list_open">Saturday</md-checkbox>
+                            </div>
+                            <div class="k-header" style="width:150px;background-color:#FF4081;margin-left:30px;">
+                                <h4 style="margin-top: 0;height: 15px;font-size:15px;font-family: Roboto;padding-left:35px;color:#ffffff">Start time</h4>
+                                <input class="start" ng-model="open_close_details[5].open" style="width: 100%" kendotime />
+                            </div>
+
+                            <div class="k-header" style="width:150px;background-color:#FF4081;margin-left:30px;">
+                                <h4 style="margin-top: 0em;height: 15px;font-size: 15px;font-family:Roboto;padding-left:35px;color:#ffffff">End time</h4>
+                                <input class="end" ng-model="open_close_details[5].close" style="width: 100%;" kendotime />
+                            </div>
+                        </div>
+                        <div layout="row" layout-align="space-around center" style="margin-top:10px">
+                            <div style="min-width:120px;">
+                                <md-checkbox ng-model="open_close_details[6].list_open">Sunday</md-checkbox>
+                            </div>
+                            <div class="k-header" style="width:150px;background-color:#FF4081;margin-left:30px;">
+                                <h4 style="margin-top: 0;height: 15px;font-size:15px;font-family: Roboto;padding-left:35px;color:#ffffff">Start time</h4>
+                                <input class="start" ng-model="open_close_details[6].open" style="width: 100%" kendotime />
+                            </div>
+
+                            <div class="k-header" style="width:150px;background-color:#FF4081;margin-left:30px;">
+                                <h4 style="margin-top: 0em;height: 15px;font-size: 15px;font-family:Roboto;padding-left:35px;color:#ffffff">End time</h4>
+                                <input class="end" ng-model="open_close_details[6].close" style="width: 100%;" kendotime />
+                            </div>
+                        </div>
+                    </div>
+
+                </md-content>
+            </md-content>
+        </div>
+    </div>
+    <div flex class="md-padding">
+        <div flex layout-fill layout-gt-sm="column" layout-align="center center" class="md-whiteframe-z3">
+            <md-content layout-padding>
+                <md-input-container>
+                    <div layout="row" style="background-color:#EBEBFF">
+                        <h3 class="md-title" style="padding-left:10px">HOME DELIVERY</h3>
+                    </div>
+                    <md-radio-group layout="row" ng-model="delivery">
+                        <md-radio-button ng-value="true">Yes</md-radio-button>
+                        <md-radio-button ng-value="false" >No </md-radio-button>
+                    </md-radio-group>
+                </md-input-container>
+            </md-content>
+        </div>
+    </div>
+    <div flex class="md-padding">
+        <div flex layout-fill layout-gt-sm="column" layout-align="center center" class="md-whiteframe-z3">
+
+
+            <md-content layout-padding>
+                <md-input-container>
+                    <div layout="row" style="background-color:#EBEBFF">
+                        <h3 class="md-title" style="padding-left:10px">MODE OF PAYMENT</h3>
+                    </div>
+                    <div layout="column" id="checkboxList" flex offset="14">
+                        <md-checkbox aria-label="Cash" ng-model="payment.cash">Cash</md-checkbox>
+                        <md-checkbox aria-label="Card" ng-model="payment.card">Card</md-checkbox>
+                    </div>
+                </md-input-container>
+            </md-content>
+        </div>
+    </div>
+
+    <div layout="row" layout-sm="column" layout-align="center center" layout-wrap flex-offet='66' style="margin-bottom:20px;">
+        <!-- <md-button class="md-raised md-primary">PREVIEW</md-button> -->
+        <md-button class="md-raised md-primary" ng-click="updateList();">SUBMIT</md-button>
+    </div>
+</main>

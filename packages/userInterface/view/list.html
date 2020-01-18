@@ -1,0 +1,262 @@
+<main class="mdl-layout__content" layout="column">
+    <div flex class="md-padding">
+        <div ng-controller="listController as ctrl" layout="column" class="md-whiteframe-z5" flex-sm- "100" flex-gt-sm="100" flex-gt-md="100" flex-gt-lg="100" style="margin-top:65px">
+            <md-content layout-padding>
+                <div layout="row" layout-sm="column" layout-align="space-between center">
+                    <md-content flex="33" flex-sm="66" class="container-padding">
+                        <md-select placeholder="Category" ng-model="we" md-on-open="" class="category-placeholder">
+                            <md-option ng-value="category.name" ng-repeat="category in categories" ng-checked="selection.indexOf(category.name) > -1" ng-click="toggleSelection(category.name)">{{category.name}}
+                            </md-option>
+                        </md-select>
+                    </md-content>
+                    <md-content layout-align="center center" flex="33" flex-sm="66" class="container-padding">
+                        <form ng-submit="$event.preventDefault()">
+                            <md-autocomplete ng-disabled="ctrl.isDisabled" md-no-cache="ctrl.noCache" md-selected-item="ctrl.selectedItem" md-search-text-change="ctrl.searchTextChange(ctrl.searchText)" md-search-text="ctrl.searchText" md-selected-item-change="ctrl.selectedItemChange(item)" md-items="item in ctrl.querySearch(ctrl.searchText)" md-item-text="item.name" md-min-length="0" placeholder="Search Listing" md-menu-class="autocomplete-custom-template">
+                                <md-item-template>
+                                    <span class="item-title">
+            <md-icon md-svg-icon="img/icons/octicon-repo.svg"></md-icon>
+            <span> {{item.name}} </span>
+                                    </span>
+                                    
+                                </md-item-template>
+                            </md-autocomplete>
+                        </form>
+                    </md-content>
+                    <md-input-container layout-align="center end" class="filter-buttons" flex="33" flex-sm="66">
+                        <div layout="row" layout-sm="row">
+                            <a href="javascript:void(0)">
+                                <md-button class="filter-buttons md-raised">All</md-button>
+                            </a>
+                            <a href="javascript:void(0)">
+                                <md-button class="filter-buttons md-raised">Priority</md-button>
+                            </a>
+                            <a href="javascript:void(0)">
+                                <md-button class="filter-buttons md-raised">Featured</md-button>
+                            </a>
+                        </div>
+                    </md-input-container>
+                </div>
+            </md-content>
+            <md-content layout-padding>
+                <uib-pagination boundary-links="true" total-items="totalItems" ng-model="currentPage" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></uib-pagination>
+            </md-content>
+            <md-content layout-padding>
+                <table class="table table-striped table-hover ">
+                    <tbody>
+                        <tr>
+                            <td class="info">Listing Name</td>
+                            <td class="warning">Design Kids</td>
+                            <td class="info">Email</td>
+                            <td class="warning">kshama@gmail.com</td>
+                        </tr>
+                        <tr>
+                            <td class="info">Listing Category</td>
+                            <td class="warning">Kids,Toys,Books</td>
+                            <td class="info">Description</td>
+                            <td class="warning">check details</td>
+                        </tr>
+                        <tr>
+                            <td class="info">Mobile Number</td>
+                            <td class="warning">233445555</td>
+                            <td class="info">Vouchers</td>
+                            <td class="warning">20</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </md-content>
+            <md-content layout-padding>
+                <section layout="row" style="background-color:#bfbfbf;" layout-sm="column" layout="center center" layout-wrap>
+                    <md-button flex="22">Premium Listings</md-button>
+                    <md-button flex="22">No Active Listing</md-button>
+                    <md-button flex="22" ng-click="toggleshow1()">View All</md-button>
+                    <md-button flex="22" ng-click="toggleshow()">Promote Listing</md-button>
+                </section>
+            </md-content>
+            <div uib-collapse="isCollapsed">
+                <md-content layout-padding style="margin-top: -11px;">
+                    <table class="table table-bordered table-striped table-hover" style="margin-bottom:20px;margin-top: -8px;">
+                        <tbody>
+                            <tr>
+                                <th>Category</th>
+                                <th>Type</th>
+                                <th>Rank</th>
+                                <th>Valid from</th>
+                                <th>Valid to</th>
+                                <th>Active</th>
+                            </tr>
+                            <tr>
+                                <td>Kids Wear</td>
+                                <td>
+                                    <select class="form-control">
+                                        <option>Priority</option>
+                                        <option>Featured</option>
+                                        <option>Preffered</option>
+                                    </select>
+                                </td>
+                                <td style="width:30px">
+                                    <div layout="row">
+                                        <md-input-container md-no-float class="rank">
+                                            <input type="number" style="width:50px">
+                                        </md-input-container>
+                                        <ng-md-icon icon="check" style="fill: #00CC00" size="25"></ng-md-icon>
+                                    </div>
+                                </td>
+                                <td style="width:80px">
+                                    <input style="width:160px" type="date" class="form-control" uib-datepicker-popup ng-model="dt" is-open="status.opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                                </td>
+                                <td style="width:80px">
+                                    <input style="width:160px" type="date" class="form-control" uib-datepicker-popup ng-model="dt" is-open="status.opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                                </td>
+                                <td style="width:160px">
+                                    <md-button change-activate class="md-raised md-primary active-buttons">{{toggleText}}</md-button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Stationary</td>
+                                <td>
+                                    <select class="form-control">
+                                        <option>Priority</option>
+                                        <option>Featured</option>
+                                        <option>Preffered</option>
+                                    </select>
+                                </td>
+                                <td style="width:30px">
+                                    <div layout="row">
+                                        <md-input-container md-no-float class="rank">
+                                            <input type="number" style="width:50px">
+                                        </md-input-container>
+                                        <ng-md-icon icon="close" style="fill: #FF0000" size="25"></ng-md-icon>
+                                    </div>
+                                </td>
+                                <td style="width:80px">
+                                    <input style="width:160px" type="date" class="form-control" uib-datepicker-popup ng-model="dt" is-open="status.opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                                </td>
+                                <td style="width:80px">
+                                    <input style="width:160px" type="date" class="form-control" uib-datepicker-popup ng-model="dt" is-open="status.opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                                </td>
+                                <td style="width:160px">
+                                    <md-button change-activate class="md-raised md-primary active-buttons">{{toggleText}}</md-button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </md-content>
+            </div>
+            <div uib-collapse="isPromoCollapsed">
+                <md-content layout-padding style="margin-top: -11px;">
+                    <table class="table table-bordered table-striped table-hover" style="margin-bottom:20px;margin-top: -8px;">
+                        <tbody>
+                            <tr>
+                                <th>Category</th>
+                                <th>Type</th>
+                                <th>Rank</th>
+                                <th>Valid from</th>
+                                <th>Valid to</th>
+                                <th>Active</th>
+                            </tr>
+                            <tr ng-repeat="row in promotinalrows">
+                                <td>
+                                    <select class="form-control">
+                                        <option>Kids Wear</option>
+                                        <option>Books</option>
+                                        <option>Stationary</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select class="form-control">
+                                        <option>Priority</option>
+                                        <option>Featured</option>
+                                        <option>Preffered</option>
+                                    </select>
+                                </td>
+                                <td style="width:30px">
+                                    <div layout="row">
+                                        <md-input-container md-no-float class="rank">
+                                            <input type="number" style="width:50px">
+                                        </md-input-container>
+                                    </div>
+                                </td>
+                                <td style="width:80px">
+                                    <input style="width:160px" type="date" class="form-control" uib-datepicker-popup ng-model="dt" is-open="status.opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                                </td>
+                                <td style="width:80px">
+                                    <input style="width:160px" type="date" class="form-control" uib-datepicker-popup ng-model="dt" is-open="status.opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                                </td>
+                                <td style="width:175px">
+                                    <div layout="row">
+                                        <md-button change-activate class="md-raised md-primary active-buttons">{{toggleText}}</md-button>
+                                        <div layout-align="end center" style="margin-left: 34px;">
+                                            <ng-md-icon data-ng-click="removeRow($index)" icon="highlight_remove" style="fill: red" size="20"></ng-md-icon>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </md-content>
+                <div layout="row">
+                    <span flex></span>
+                    <md-button flex ng-click="addPromotinalRow()" class="md-primary">add</md-button>
+                    <md-button flex ng-click="removePromotinalRow()" class="md-accent">Remove</md-button>
+                    <span flex></span>
+                </div>
+            </div>
+            <!-- <md-content layout-padding>
+                <div layout="row" style="background-color:#bfbfbf;padding: 8px">
+                    <div flex="33" style="padding:22px">Featured categories</div>
+                    <div layout="row" layout-sm="column" flex="33">
+                        <md-checkbox class="md-primary" ng-click="isCollapsed = !isCollapsed" style="line-height: 45px">
+                            Kids
+                        </md-checkbox>
+                        <md-checkbox class="md-primary" ng-click="isCollapsed = !isCollapsed" style="line-height: 45px">
+                            Toys
+                        </md-checkbox>
+                        <md-checkbox class="md-primary" ng-click="isCollapsed = !isCollapsed" style="line-height: 45px">
+                            Books
+                        </md-checkbox>
+                    </div>
+                    <div flex="33" style="padding:11px">
+                        <button type="button" class="btn btn-default">Click here to expand
+                            <ng-md-icon icon="expand_more" size="28"></ng-md-icon>
+                        </button>
+                    </div>
+                </div>
+            </md-content> -->
+            <!-- repeated table -->
+            <md-content layout-padding style="margin-top:30px;">
+                <table class="table table-striped table-hover ">
+                    <tbody>
+                        <tr>
+                            <td class="info">Listing Name</td>
+                            <td class="warning">Design Kids</td>
+                            <td class="info">Email</td>
+                            <td class="warning">kshama@gmail.com</td>
+                        </tr>
+                        <tr>
+                            <td class="info">Listing Category</td>
+                            <td class="warning">Kids,Toys,Books</td>
+                            <td class="info">Description</td>
+                            <td class="warning">check details</td>
+                        </tr>
+                        <tr>
+                            <td class="info">Mobile Number</td>
+                            <td class="warning">233445555</td>
+                            <td class="info">Vouchers</td>
+                            <td class="warning">20</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </md-content>
+            <md-content layout-padding>
+                <section layout="row" style="background-color:#bfbfbf;" layout-sm="column" layout="center center" layout-wrap>
+                    <md-button flex="22">Featured/ Priority</md-button>
+                    <md-button flex="22">No Active Listing</md-button>
+                    <md-button flex="22">View All</md-button>
+                    <md-button flex="22">Promote Listing</md-button>
+                </section>
+            </md-content>
+              
+        </div>
+    </div>
+</main>
+

@@ -1,0 +1,58 @@
+
+<main class="mdl-layout__content" layout="column" ng-init="getAllUsers();">
+    <div flex class="md-padding">
+        <div layout="column" class="md-whiteframe-z5" flex-sm- "100" flex-gt-sm="100" flex-gt-md="100" flex-gt-lg="100" style="margin-top:65px">
+            <md-content layout="row">
+                <md-content layout="row" flex="70" layout-align="left center" class="border-bottom">
+                    <h5 style="margin-left:15px;padding-top: 10px;">MUMPA USERS</h5>
+                </md-content>
+                <md-content layout="row" flex="30"  layout-align="center end" class="border-bottom">
+                    <md-input-container style="width:150px;">
+                        <label class="glyphicon glyphicon-search" style="color: #666666; font-size: 16px;">  Search...</label>
+                        <input ng-model="filter.$">
+                        
+                    </md-input-container>
+                </md-content>
+            </md-content>
+
+            <md-content style="padding-top:20px;" layout="row" layout-align="end center">
+                <!-- <div>
+                    <md-select placeholder="User Type" style="width:150px;" ng-model="user_type" ng-change="filterUserType(user_type);">
+                        <md-option value="all">All</md-option>
+                        <md-option value="dealer">Dealer</md-option>
+                        <md-option value="user">User</md-option>
+                        <md-option value="admin">Admin</md-option>
+                    </md-select>
+                </div> -->
+                <div style="margin-right:20px;">
+                    <md-button type="button" class="md-raised md-primary"  ng-csv="exportUsers" filename="{{user_list_export_file_name}}" csv-header="['NAME', 'EMAIL', 'ROLE', 'EARNED POINTS', 'CREATED ON', 'STATUS']"><span>Export </span><span class="glyphicon glyphicon-export"></span></md-button>
+                </div>
+            </md-content>
+            
+            <md-content layout-padding>
+                <table class="table table-bordered table-striped table-hover userlist" ng-table="tableParams" style="margin-bottom:20px;">
+                    <tbody>         
+                        <tr ng-repeat="userObj in $data">
+                            <td data-title="'S. No.'" sortable="'s_no'" class="capitalize">{{userObj.s_no}}</td>
+                            <td data-title="'USER NAME'" sortable="'name'" class="capitalize">{{userObj.name}}</td>
+                            <td data-title="'USER EMAIL'" sortable="'email'">{{userObj.email}}</td>
+                            <td data-title="'USER TYPE'" sortable="'role'" class="capitalize">{{userObj.role}}</td>
+                            <td data-title="'EARNED POINTS'" sortable="'Total'"><a ng-click="gotoUserDetails(userObj.email)">{{userObj.Total}}</a></td>
+                            <td data-title="'CREATED ON'" sortable="'created'" class="capitalize">{{userObj.created | date:longDate}}</td>
+                            <td data-title="'REFER ID'" sortable="'refer_id'" >{{userObj.refer_id}}</td>
+                            <td data-title="'ADDRESS'" sortable="'refer_id'" >{{userObj.city}}<span ng-show="(userObj.city.length >1) && (userObj.state.length>1)">,</span> {{userObj.state}}</td>
+                            <td data-title="'PLATFORM'" sortable="'refer_id'" >
+                                <span ng-show="userObj.android"><i class="material-icons">android</i></span>
+                                <span ng-show="userObj.ios" style="font-size: 24px;" class="glyphicon glyphicon-apple"></span>
+                            </td>
+                            <td data-title="'DEACTIVATE'" sortable="'status'" class="capitalize"> 
+                                <md-button ng-if="userObj.status=='active'" class="md-raised md-warn" ng-click="deactivateUser(userObj)">Deactivate</md-button>
+                                <md-button ng-if="userObj.status!='active'"  class="md-raised md-primary" ng-click="activateUser(userObj)">Activate</md-button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </md-content>
+        </div>
+    </div>
+</main>

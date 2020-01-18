@@ -1,0 +1,164 @@
+<main class="mdl-layout__content" layout="column" ng-init="getAllCategories();getAllCitiesOfList();getAllList(); initializePreferentailListing();">
+    <div class="md-padding">
+        <div layout="column" class="md-whiteframe-z5" flex-sm="100" flex-gt-sm="100" flex-gt-md="100" flex-gt-lg="100" style="margin-top:65px">
+            <md-content layout="row">
+                <md-content layout="row" flex="70" layout-align="left center" class="border-bottom">
+                    <h5 style="margin-left:15px;padding-top: 10px;">PREFER A LISTING</h5>
+                </md-content>
+                <md-content layout="row" flex="30" layout-align="center end" class="border-bottom">
+                    <md-input-container style="width:150px;">
+                        <label class="glyphicon glyphicon-search" style="color: #666666; font-size: 16px;">Search...</label>
+                        <input ng-model="searchtxt" ng-change="initializePreferentailListing()">
+                    </md-input-container>
+                </md-content>
+            </md-content>
+            <div class="col-sm-12">
+                <div class="col-sm-3">
+                    <md-select placeholder="Category" ng-model="sel_cid" class="sel_category" ng-change="initializePreferentailListing()">
+                        <md-option ng-value="cat.category_id" ng-repeat="cat in categories">{{cat.category}}</md-option>
+                    </md-select>
+                </div>
+                <div class="col-sm-2">
+                    <md-select placeholder="City" ng-model="sel_city" ng-change="initializePreferentailListing()">
+                        <md-option ng-repeat="ct in cities">{{ct.city}}</md-option>
+                    </md-select>
+                </div>
+            </div>
+            <div class="col-md-12" class="padding0" infinite-scroll="scrollPreferentailListing()">
+                <div class="col-md-12" data-ng-repeat="list in allListings">
+                    <md-content layout-padding>
+                        <table class="table table-striped table-hover preferredlist">
+                            <tbody>
+                                <tr>
+                                    <td class="info">Listing Name</td>
+                                    <td class="warning">{{list.business_name}}</td>
+                                    <td class="info">Email</td>
+                                    <td class="warning"><span ng-show="list.bussines_email!='null'">{{list.bussines_email}}</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="info">Listing Category</td>
+                                    <td class="warning">{{list.category_details[0].category}}</td>
+                                    <td class="info">Mobile Number</td>
+                                    <td class="warning">{{list.phone_no}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="info">Listing Address</td>
+                                    <td class="warning">{{list.address2}}</td>
+                                    <td class="info">Listing City</td>
+                                    <td class="warning">{{list.city}}</td>
+                                </tr>
+                                <!-- <tr>
+                                    <td class="info">Listing Category</td>
+                                    <td class="warning">{{list.category_details[0].category}}</td>
+                                    <td class="info">Description</td>
+                                    <td class="warning">check details</td>
+                                </tr>
+                                <tr>
+                                    <td class="info">Mobile Number</td>
+                                    <td class="warning">{{list.phone_no}}</td>
+                                    <td class="info">Vouchers</td>
+                                    <td class="warning">20</td>
+                                </tr> -->
+                            </tbody>
+                        </table>
+                    </md-content>
+                    <md-content layout-padding>
+                        <section layout="row" style="background-color:#BFBFBF;" layout-sm="column" layout="center center" layout-wrap>
+                            <md-button class="md-raised md-accent" flex="44" ng-click="toggleAll(list, $index)" ng-init="list.isCollapsed='true'"><b>View Previous Promotions</b></md-button>
+                            <md-button class="md-raised md-accent" flex="44" ng-click="togglePromote(list, $index)" ng-init="list.isPromoCollapsed='true'"><b>Promote Listing</b></md-button>
+                        </section>
+                    </md-content>
+                    <div uib-collapse="list.isCollapsed">
+                        <md-content layout-padding style="margin-top: -11px;" ng-show="list.preference_details.length">
+                            <table class="table table-bordered table-striped table-hover preferredlist" style="margin-bottom:20px;margin-top: -8px;">
+                                <tbody>
+                                    <tr>
+                                        <th>Category</th>
+                                        <th>Type</th>
+                                        <th>Rank</th>
+                                        <th>Valid from</th>
+                                        <th>Valid to</th>
+                                        <th>Active</th>
+                                        <!-- <th>Active</th> -->
+                                    </tr>
+                                    <tr ng-repeat=" pref in list.preference_details">
+                                        <td class="capitalize">{{pref.category}}</td>
+                                        <td class="capitalize">{{pref.listing_type}}</td>
+                                        <td>{{pref.rank}}</td>
+                                        <td>{{pref.valid_from | date}}</td>
+                                        <td>{{pref.valid_to | date}}</td>
+                                        <td><span ng-show="pref.active">Active</span><span ng-hide="pref.active">Inative</span></td>
+                                        <!-- <td style="width:160px">
+                                            <md-button ng-hide="pref.active" change-activate class="md-raised md-primary active-buttons">Active</md-button>
+                                            <md-button ng-show="pref.active" change-activate class="md-raised md-primary active-buttons">Inactive</md-button>
+                                        </td> -->
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </md-content>
+                        <md-content flex="100" layout="column" layout-align="center center" ng-hide="list.preference_details.length">
+                            <span><h6><b>NO PREVIOUS PREFERENCES.</b></h6></span>
+                        </md-content>
+                    </div>
+                    <div uib-collapse="list.isPromoCollapsed">
+                        <md-content layout-padding style="margin-top: -11px;">
+                            <table class="table table-bordered table-striped table-hover preferredlist" style="margin-bottom:20px;margin-top: -8px;">
+                                <tbody>
+                                    <tr>
+                                        <th>Category</th>
+                                        <th>Type</th>
+                                        <th>Rank</th>
+                                        <th>Valid from</th>
+                                        <th>Valid to</th>
+                                        <th>Active</th>
+                                    </tr>
+                                    <tr ng-init="list.isPromoCheck='true'">
+                                        <form name="preferenceForm">
+                                            <td>
+                                                <md-select style="width: 200px;padding:0;" ng-show="list.isPromoCheck" ng-model="list.premiumList.categoryObj" placeholder="Category" required>
+                                                    <md-option ng-repeat="cat in list.category_details"  ng-value="cat">{{cat.category}}</md-option>
+                                                </md-select>                                                
+
+                                                <input type="text" class="form-control" ng-model="list.premiumList.categoryObj.category" ng-hide="list.isPromoCheck" disabled></input>
+                                            </td>
+                                            <td>
+                                                <md-select style="width: 200px;padding:0;" ng-show="list.isPromoCheck" ng-model="list.premiumList.listing_type" placeholder="Preference Type" required>
+                                                    <md-option value="premium">Premium</md-option>
+                                                    <md-option value="featured">Featured</md-option>
+                                                </md-select>
+                                                <input type="text" class="form-control" ng-model="list.premiumList.listing_type" ng-hide="list.isPromoCheck" disabled></input>
+                                            </td>
+                                            <td>
+                                                <md-select style="width: 80px;padding:0;" ng-show="list.isPromoCheck" ng-model="list.premiumList.rank" placeholder="Rank" required>
+                                                    <md-option ng-repeat="rank in rankArray">{{rank}}</md-option>
+                                                </md-select>
+                                                <input type="text" class="form-control" ng-model="list.premiumList.rank " ng-hide="list.isPromoCheck" disabled></input>
+                                            </td>
+                                            <td>
+                                                <input style="width:160px" ng-show="list.isPromoCheck" type="date" class="form-control" uib-datepicker-popup="dd/MM/yyyy" ng-model="list.premiumList.valid_from" is-open="status.opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" required close-text="Close" />
+                                                <input type="text" class="form-control" ng-value="list.premiumList.valid_from | date" ng-if="!list.isPromoCheck" disabled></input>
+                                            </td>
+                                            <td>
+                                                <input style="width:160px" ng-show="list.isPromoCheck" type="date" class="form-control" uib-datepicker-popup="dd/MM/yyyy" ng-model="list.premiumList.valid_to" is-open="status.opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" required close-text="Close" />
+                                                <input type="text" class="form-control" ng-value="list.premiumList.valid_to | date" ng-if="!list.isPromoCheck" disabled></input>
+                                            </td>
+                                            <td style="width:175px">
+                                                <div layout="row">
+                                                    <md-button change-activate ng-show="list.isPromoCheck" class="md-raised md-primary active-buttons" ng-disabled="preferenceForm.$invalid" ng-click="checkPreferentialListing(list,list.premiumList)">Check</md-button>
+                                                    <md-button change-activate ng-hide="list.isPromoCheck" class="md-raised md-primary active-buttons" ng-click="addPreferentialListing(list,list.premiumList)">Activate</md-button>
+                                                </div>
+                                            </td>
+                                        </form>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </md-content>
+                    </div>
+                    <div class="infinite-wrapper" ng-show="infiniteLoader">
+                        <img src="assets/img/infinite_loader.gif">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

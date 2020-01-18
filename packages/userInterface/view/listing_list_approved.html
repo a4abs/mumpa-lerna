@@ -1,0 +1,94 @@
+<main class="mdl-layout__content" layout="column" ng-init="getAllCategories();"><!-- initializeAllApprovedListing(); -->
+    <div flex class="md-padding"  >
+        <div  layout="column" class="md-whiteframe-z5" flex-sm- "100" flex-gt-sm="100" flex-gt-md="100" flex-gt-lg="100" style="margin-top:65px">
+            <md-content layout="row">
+                <md-content layout="row" flex="70" layout-align="left center" class="border-bottom">
+                    <h5 style="margin-left:15px;">VIEW LISTING</h5>
+                </md-content>
+                <md-content layout="row" flex="30"  layout-align="center end" class="border-bottom">
+                    <md-input-container style="width:150px;">
+                        <label class="glyphicon glyphicon-search" style="color: #666666; font-size: 16px;">  Search...</label>
+                        <input ng-model="approvedsearchtxt" ng-change="initializeAllApprovedListing()">
+                        
+                    </md-input-container>
+                </md-content>
+            </md-content>
+
+            <md-content layout="row" layout-align="space-around center">
+                <div>
+                    <md-select placeholder="User Type" style="width:150px;" ng-model="sel_user_type" ng-change="filterAllApprovedListing();">
+                        <md-option value="All">All</md-option>
+                        <md-option value="dealer">Dealer</md-option>
+                        <md-option value="user">User</md-option>
+                        <md-option value="admin">Admin</md-option>
+                    </md-select>
+                </div>
+                <div>
+                    <md-select placeholder="Category" style="width:250px;" ng-model="sel_cid" ng-change="filterAllApprovedListing();">
+                        <md-option ng-value="24">All</md-option>
+                        <md-option ng-repeat="cat in categoriesDetails" ng-value="cat.category_id">{{cat.category}}</md-option>
+                    </md-select>
+                </div>
+                <div>
+                    <md-select placeholder="Status" style="width:150px;" ng-model="sel_status" ng-change="filterAllApprovedListing();">
+                        <md-option value="All">All</md-option>
+                        <md-option value="active">Active</md-option>
+                        <md-option value="inactive">Inactive</md-option>
+                    </md-select>
+                </div>
+                <div>
+                    <md-select placeholder="Locality" style="width:200px;" ng-model="locality">
+                        <md-option selected value="Delhi NCR">Delhi NCR</md-option>
+                    </md-select>
+                </div>
+                
+            </md-content>
+
+            <md-content layout-padding style="display:block;">
+                <table class="table table-bordered table-striped table-hover listinglist" style="margin-bottom:20px;">
+                    <thead>
+                        <tr>
+                            <th>Listing Id</th>
+                            <th>Listing Name</th>
+                            <th>Locality</th>
+                            <th>Category</th>
+                            <th>Primary Phone No.</th>
+                            <th>User Type</th>
+                            <th>Assigned To</th>
+                            <th>Status</th>
+                            <th>View/Edit</th>
+                        </tr>
+                    </thead>
+                    <tbody infinite-scroll="scrollAllApprovedListing()">          
+                        <tr ng-repeat="list in allApprovedListing" ng-click="viewListingDetails(list.listing_id)">
+                            <td class="capitalize">{{list.listing_id}}</td>
+                            <td class="capitalize">{{list.business_name}}</td>
+                            <td class="capitalize">{{list.location}}</td>
+                            <td class="capitalize">{{list.category}}</td>
+                            <td>{{list.phone_no}}</td>
+                            <td class="capitalize">{{list.role}}</td>
+                            <td >
+                                <span ng-show="list.assigned_to">{{list.assigned_to}}</span>
+                                <span ng-show="!list.assigned_to">NOT ASSIGNED</span>
+                            </td>
+                            <td class="capitalize">{{list.status}}
+                                <!-- <md-select ng-model="list.status" style="width:150px;">
+                                    <md-option value="active" ng-click="activateListing(list)">Active</md-option>
+                                    <md-option value="inactive" ng-click="deactivateListing(list)">Inactive</md-option>
+                                </md-select> -->
+                            </td>
+                            <td> 
+                                <md-button class="md-raised md-primary" ng-click="viewListingDetails(list.listing_id)">View Details</md-button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="infinite-wrapper" ng-show="infiniteLoader">
+                    <img src="assets/img/infinite_loader.gif">
+                </div>
+            </md-content >
+            
+
+        </div>
+    </div>
+</main>

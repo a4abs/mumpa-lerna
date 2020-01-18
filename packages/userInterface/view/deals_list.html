@@ -1,0 +1,83 @@
+<main class="mdl-layout__content" layout="column" ng-init="initializeAllDeals();getAllDeals();">
+    <div flex class="md-padding">
+        <div layout="column" class="md-whiteframe-z5" flex-sm- "100" flex-gt-sm="100" flex-gt-md="100" flex-gt-lg="100" style="margin-top:65px">
+            <md-content layout="row">
+                <md-content layout="row" flex="70" layout-align="left center" class="border-bottom">
+                    <h5 style="margin-left:15px;padding-top: 10px;">MUMPA DEALS</h5>
+                </md-content>
+                <md-content layout="row" flex="30"  layout-align="center end" class="border-bottom">
+                    <md-input-container style="width:150px;">
+                        <label class="glyphicon glyphicon-search" style="color: #666666; font-size: 16px;">Search...</label>
+                        <input  ng-model="searchtxt" ng-change="initializeAllDeals()">
+                    </md-input-container>
+                    
+                </md-content>
+                
+            </md-content>
+            <md-content layout="row" layout-align="end end">
+                    <md-button  type="button" class="md-raised md-primary" ng-csv="exportAllDeals" filename="{{alldeal_list_export_file_name}}" csv-header="['LISTING ID', 'LISTING NAME', 'DEAL HEADLINE', 'POINTS REQ.', 'STATUS', 'CREATOR', 'NO. OF AVAILABLE VOUCHERS', 'NO OF CLAIMED VOUCHERS', 'CREATE DATE', 'EXPIRY DATE']"><span>Export All Deals</span> <span class="glyphicon glyphicon-export"></span></md-button>
+                </md-content>
+            <md-content layout="row" layout-align="space-around center">
+                <md-content flex ="70" layout="row" layout-align="space-around center">
+                    <md-select placeholder="User Type" style="width:250px;" ng-model="user_type" ng-change="initializeAllDeals()">
+                        <md-option value="all" >All Creators</md-option>
+                        <md-option value="admin">Admin</md-option>
+                        <md-option value="dealer">Dealer</md-option>
+                    </md-select>
+                    <md-select placeholder="Deal Status" style="width:250px;" ng-model="status" ng-change="initializeAllDeals()">
+                        <md-option value="all">All Deals</md-option>
+                        <md-option value="active">Active</md-option>
+                        <md-option value="expired">Expired</md-option>
+                    </md-select>
+                    <md-select placeholder="Order By" style="width:250px;" ng-model="order_by" ng-change="initializeAllDeals()">
+                        <md-option value="created">Created Date</md-option>
+                        <md-option value="expiry">Expiry Date</md-option>
+                    </md-select>
+                </md-content>
+                <md-content flex ="30" layout="row" layout-align="end end">
+                    <md-button type="button" class="md-raised md-primary pull-right" ng-csv="exportDeals" filename="{{deal_list_export_file_name}}" csv-header="['LISTING ID', 'LISTING NAME', 'DEAL HEADLINE', 'POINTS REQ.', 'STATUS', 'CREATOR', 'NO. OF AVAILABLE VOUCHERS', 'NO OF CLAIMED VOUCHERS', 'CREATE DATE', 'EXPIRY DATE']"><span>Export Shown Deals </span><span class="glyphicon glyphicon-export"></span></md-button>
+                </md-content>
+            </md-content>
+            
+            <md-content layout-padding>
+                <table class="table table-bordered table-striped table-hover listinglist" style="margin-bottom:20px;">
+                    <thead>
+                        <tr>
+                            <th>S. NO.</th>
+                            <th>LISTING ID</th>
+                            <th>LISTING NAME</th>
+                            <th>DEAL HEADLINE</th>
+                            <th>POINTS REQ.</th>
+                            <th>STATUS</th>
+                            <th>CREATOR ROLE</th>
+                            <th>VOUCHER AVAILABLE</th>
+                            <th>VOUCHER CLAIMED</th>
+                            <th>CREATE DATE</th>
+                            <th>EXPIRY DATE</th>
+                            <th>DUPLICATE</th>
+                        </tr>
+                    </thead>
+                    <tbody infinite-scroll="scrollAllDeals()">
+                        <tr ng-repeat="deal in deals | filterDealOnUser : usertype" >
+                            <td class="capitalize" ng-click="dealView(deal.voucher_id)">{{$index+1}}</td>
+                            <td class="capitalize" ng-click="dealView(deal.voucher_id)">{{deal.listing_id}}</td>
+                            <td class="capitalize" ng-click="dealView(deal.voucher_id)">{{deal.bs_name}}</td>
+                            <td class="capitalize" ng-click="dealView(deal.voucher_id)">{{deal.short_desc}}</td>
+                            <td class="capitalize" ng-click="dealView(deal.voucher_id)"><span ng-if="deal.price!=0">{{deal.price}}</span><span ng-if="deal.price==0">Free</span></td>
+                            <td class="capitalize" ng-click="dealView(deal.voucher_id)">{{deal.status}}</td>
+                            <td class="capitalize" ng-click="dealView(deal.voucher_id)">{{deal.role_id}}</td>
+                            <td class="capitalize" ng-click="dealView(deal.voucher_id)" style="width:50px;">{{deal.availablevoucher}}</td>
+                            <td class="capitalize" ng-click="dealView(deal.voucher_id)" style="width:50px;">{{deal.claimedvoucher}}</td>
+                            <td class="capitalize" ng-click="dealView(deal.voucher_id)">{{deal.created | date:longDate}}</td>
+                            <td class="capitalize" ng-click="dealView(deal.voucher_id)">{{deal.expiry | date:longDate}}</td>
+                            <td><md-button class="md-raised md-primary" ng-click="goToDuplicateDealPage(deal.voucher_id)" style="width:35px;"><span class="glyphicon glyphicon-copy" style="font-size: 18px"></span></md-button></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="infinite-wrapper" ng-show="infiniteLoader">
+                    <img src="assets/img/infinite_loader.gif">
+                </div>
+            </md-content>
+        </div>
+    </div>
+</main>

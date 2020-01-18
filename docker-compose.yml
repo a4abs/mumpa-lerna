@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+  frontend:
+    build: ./packages/userInterface
+    ports:
+      - "5000:80"
+    volumes:
+      - "/usr/share/nginx/html"
+    links:
+      - backend
+  backend:
+    build: ./packages/backend
+    expose:
+      - "4000"
+    environment:
+      APP_SERVER_PORT: "4000"
+    ports:
+      - "4000:4000"

@@ -1,0 +1,37 @@
+<main class="mdl-layout__content" layout="column" ng-init="getMyDetails()">
+    <div flex class="md-padding">
+        <div layout="column" class="md-whiteframe-z3" flex-sm- "100" flex-gt-sm="100" flex-gt-md="100" flex-gt-lg="100" style="margin-top:65px">
+            <md-content layout="row" layout-align="left center" class="border-bottom">
+                <h5 style="margin-left:15px;">EDIT YOUR DETAILS</h5>
+            </md-content>
+        </div>
+    </div>
+    <div flex class="no-padding">
+        <form name="editMeForm" ng-submit="updateMe();">
+            <div flex class="md-padding">
+                <div layout="column" layout-align="center center" class="md-whiteframe-z3">
+                    <md-content layout-padding>
+                        <md-input-container class="md-icon-float">
+                            <input type="text" ng-model="mydetails.name" placeholder="Enter Name" required>
+                        </md-input-container>
+                        <!-- <md-input-container class="md-icon-float">
+                            <md-select placeholder="Select Gender" ng-model="mydetails.gender" required>
+                                <md-option ng-value="male">Male</md-option>
+                                <md-option ng-value="female">Female</md-option>
+                            </md-select>
+                        </md-input-container> -->
+                        <md-input-container class="md-icon-float">
+                            <input type="text" ng-model="mydetails.city" placeholder="Enter Your City" required>
+                        </md-input-container>
+                        <md-input-container class="md-icon-float">
+                            <input type="text" ng-model="mydetails.mobile" placeholder="Enter Mobile No." required>
+                        </md-input-container>
+                    </md-content>
+                </div>
+            </div>
+            <div layout="row" layout-sm="column" layout-align="center center" layout-wrap flex-offet='66' style="margin:20px 0;">
+                <md-button class="md-raised md-primary" type="submit">Update</md-button>
+            </div>
+        </form>
+    </div>
+</main>

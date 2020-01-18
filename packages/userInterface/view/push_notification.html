@@ -1,0 +1,40 @@
+<main class="mdl-layout__content" layout="column">
+    <div flex class="md-padding">
+        <div layout="column" class="md-whiteframe-z3" flex-sm- "100" flex-gt-sm="100" flex-gt-md="100" flex-gt-lg="100" style="margin-top:65px">
+            <md-button class="md-raised md-primary">Push notification for remind user to refer friend</md-button>
+            <div layout="column" flex id="content" class="view-wrapper">
+                <md-content layout="column" layout-align="center center" class="md-whiteframe-z3" flex-sm- "100" flex-gt-sm="100" flex-gt-md="100" flex-gt-lg="100" flex class="md-padding" class="container">
+                    <form layout-align="center center" ng-submit="sendRemindForReferal()">
+                        <md-input-container>
+                            <label>All User</label>
+                        </md-input-container>
+                        <md-input-container class="md-block">
+                            <label>Message</label>
+                            <textarea ng-model="push.remindermessage" columns="1" md-maxlength="150" rows="5"></textarea>
+                        </md-input-container>
+                        <md-button class="md-raised md-primary">Send Push</md-button>
+                         <span style="color:green">{{success_msg}}</span>
+                    </form>
+                    
+                </md-content>
+                
+            </div>
+            <md-button class="md-raised md-primary">Push notification for remind user who has not entered referal code </md-button>
+            <md-button class="md-raised md-primary">Push notification for new store added/approved or new deal created</md-button>
+            <md-content layout="column" layout-align="center center" class="md-whiteframe-z3" flex-sm- "100" flex-gt-sm="100" flex-gt-md="100" flex-gt-lg="100" flex class="md-padding" class="container">
+                    <form layout-align="center center" ng-submit="sendRemindForReferal()">
+                        <md-input-container>
+                            <label>All User</label>
+                        </md-input-container>
+                        <md-input-container class="md-block">
+                            <label>Message</label>
+                            <textarea ng-model="push.remindermessage" columns="1" md-maxlength="150" rows="5"></textarea>
+                        </md-input-container>
+                        <md-button class="md-raised md-primary">Send Push</md-button>
+                         <span style="color:green">{{success_msg}}</span>
+                    </form>
+                    
+                </md-content>
+        </div>
+    </div>
+</main>

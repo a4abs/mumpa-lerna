@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="US_en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Mumpa | Dashboard</title>
+    <script type="text/javascript" src="lib/jquery/dist/jquery.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="lib/fontawsome/fontawsome.css">
+    <link rel="stylesheet" type="text/css" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <script type="text/javascript" src="lib/angular/angular.min.js"></script>
+    <script type="text/javascript" src="lib/angular/angular.local.js"></script>
+    <script type="text/javascript" src="lib/angularjs-geolocation.min.js"></script>
+    <script type="text/javascript" src="lib/angular-cookies/angular-cookies.js"></script>
+    <script type="text/javascript" src="lib/infinite-scroll/infinite-scroll.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="lib/angular-material/material.indigo-pink.min.css">
+    <script type="text/javascript" src="lib/angular-material/material.min.js"></script>
+    <link rel="stylesheet" href="lib/angular-material/material_icons.css">
+    <link rel="stylesheet" href="lib/angular-material/roboto_font_css.css" type="text/css">
+    <script type="text/javascript" src="lib/angular-material/angular-material-icons.min.js"></script>
+    <!--material library-->
+    <script type="text/javascript" src="lib/angular-aria/angular-aria.min.js"></script>
+    <script type="text/javascript" src="lib/angular-animate/angular-animate.min.js"></script>
+    <script type="text/javascript" src="lib/angular-material/angular-material.js"></script>
+    <link rel="stylesheet" type="text/css" href="lib/angular-material/angular-material.css">
+    <script type="text/javascript" src="lib/angular-route/angular-route.js"></script>
+    <script src="https://code.angularjs.org/1.4.5/angular-resource.min.js"></script>
+    <script type="text/javascript" src="lib/angular-touch.min.js"></script>
+    <script type="text/javascript" src="lib/ui-bootstrap-tpls-0.14.1.min.js"></script>
+    <!--kendo timepicker-->
+    <script type="text/javascript" src="lib/kendo/kendo.web.min.js"></script>
+    <link rel="stylesheet" href="lib/kendo/kendo.common-bootstrap.min.css" />
+    <link rel="stylesheet" href="lib/kendo/kendo.bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/mumpad.css">
+    <!-- ng-table -->
+    <script type="text/javascript" src="lib/ng-table/ng-table.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="lib/ng-table/ng-table.min.css">
+    <script type="text/javascript" src="lib/moment/moment.js"></script>
+    <script type="text/javascript" src="lib/ng-csv/ng-csv.js"></script>
+    <script type="text/javascript" src="lib/angular-sanitize/angular-sanitize.js"></script>
+    <script type="text/javascript" src="lib/toastr/angular-toastr.tpls.js"></script>
+    <link rel="stylesheet" type="text/css" href="lib/toastr/angular-toastr.min.css">
+</head>
+
+<body ng-app='mumpaApp' ng-controller="homeController" style="width: 100%;">
+    <div id="loaderDiv" loader>
+        <img src="assets/img/loader.gif" class="ajax-loader">
+    </div>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header" ng-hide="!loggedin">
+        <header class="mdl-layout__header" style="position:fixed;z-index:1">
+            <div class="mdl-layout__header-row">
+                <span hidenav style="cursor: pointer;"><md-icon style="color:#FFF; margin-right:15px;"  md-svg-src = 'assets/img/lines7.svg'></md-icon></span>
+                <span class="mdl-layout-title" ng-click="goToHome()"> MUMPA </span>
+                <div class="mdl-layout-spacer"></div>
+                <nav class="mdl-navigation  heading-padding">
+                    <a href="#/home" class="mdl-navigation__link" href="">HOME</a>
+                    <a id="demo-menu-lower-right" class="mdl-navigation__link dropdown-toggle">
+                        <img class="img-circle" style="border-radius:50%; height:50px;" src="assets/img/avatar_2x.png">
+                    </a>
+                    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-right">
+                        <li class="mdl-menu__item" ng-click="goToMe();">
+                            <span class="capitalize" ng-show="user.name">{{user.name}}</span>
+                            <span class="capitalize" ng-show="!user.name">{{user.email}}</span>
+                        </li>
+                        <li class="mdl-menu__item" ng-click="goToChangePassword()">Change Password</li>
+                        <li class="mdl-menu__item" ng-click="logout();">Logout</li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+    </div>
+    <!-- -->
+    <div layout="row" flex>
+        <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-4dp mdl-layout__drawer navigation-drawer" md-component-id="left" md-is-locked-open="true" style="display:none" ng-hide="!loggedin">
+            <uib-accordion close-others="true" ng-show="user.role=='admin'">
+                <uib-accordion-group ng-repeat="group in groups" is-open="group.open">
+                    <uib-accordion-heading class="no-padding">
+                        <div class="accord-head-span">
+                            <span>{{group.title}}</span>
+                            <span class="pull-right glyphicon" style="margin-top:5px;" ng-class="{'glyphicon-chevron-down': group.open, 'glyphicon-chevron-right': !group.open}"></span>
+                        </div>
+                    </uib-accordion-heading>
+                    <ul class="no-padding">
+                        <li hidenav><a class="collapse-option" ng-repeat="optn in group.options" href={{optn.url}}>{{optn.title}}</a></li>
+                    </ul>
+                </uib-accordion-group>
+            </uib-accordion>
+            <nav class="mdl-navigation left-nav-option-list" ng-show="user.role=='dealer'">
+                <a class="mdl-navigation__link" href="#/home">HOME</a>
+                <a class="mdl-navigation__link" href="#/createList">CREATE LIST</a>
+                <a class="mdl-navigation__link" href="#/createdeal">CREATE DEALS</a>
+            </nav>
+            <nav class="mdl-navigation left-nav-option-list" ng-show="user.role=='approver'">
+                <a class="mdl-navigation__link" href="#/listingsApprover">APPROVED LISTINGS</a>
+            </nav>
+        </md-sidenav>
+        <div layout="column" flex id="content" class="view-wrapper">
+            <md-content layout="column" flex class="md-padding" class="container">
+                <div ng-view></div>
+            </md-content>
+        </div>
+    </div>
+    <script type="text/javascript" src="app.js"></script>
+    <script type="text/javascript" src="controllers/controller.js"></script>
+    <script type="text/javascript" src="services/dbServices.js"></script>
+    <script type="text/javascript" src="directives/directives.js"></script>
+    <script type="text/javascript" src="config/config.js"></script>
+</body>
+
+</html>

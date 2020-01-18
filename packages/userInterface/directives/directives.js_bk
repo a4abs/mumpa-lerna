@@ -1,0 +1,104 @@
+'use strict';
+
+mumpaApp
+    .directive('kendotime', function() {
+        return {
+            restrict: 'EA',
+            scope: {},
+            link: function(scope, elem, attrs) {
+                var start = elem.kendoTimePicker().data("kendoTimePicker");
+                start.min("5:00 AM");
+                start.max("4:30 AM");
+            }
+        }
+    })
+    /*.directive('kendodate', function() {
+        return {
+            restrict: 'EA',
+            require : 'ngModel',
+            link: function(scope, elem, attrs, ngModel) {
+                console.log(attrs);
+                console.log(ngModel);
+                var x = new Date(ngModel.$modelValue);
+                console.log(x);
+                var start = elem.kendoDatePicker({format: "yyyy/MM/dd",value: new Date()});
+
+            }
+        }
+    })*/
+    /*.directive('kendodate', function() {
+        return {
+            require: 'ngModel',
+            restrict: 'EA',
+            scope: {},
+            link: function(scope, elem, attrs, ngModelCtrl) {
+                //console.log(ngModelCtrl.$modelValue);
+                var start = elem.kendoDatePicker({
+                    format: "yyyy/MM/dd",
+                    value: ngModelCtrl.$modelValue
+                });
+            }
+        }
+    })*/
+    .directive('kendodate', function() {
+        return {
+            require: 'ngModel',
+            restrict: 'EA',
+            scope: {},
+            link: function(scope, elem, attrs, ngModelCtrl) {
+                if (!ngModelCtrl || ngModelCtrl.$modelValue) return;
+                var start = elem.kendoDatePicker({
+                    format: "yyyy/MM/dd",
+                    value: ngModelCtrl.$modelValue
+                });
+                
+                elem.on('click',function(){
+                        elem.data("kendoDatePicker").open();
+                    })
+            }
+        }
+    })
+    .directive('hidenav', function() {
+        return {
+            restrict: 'EA',
+            scope: {},
+            link: function(scope, elem, attrs) {
+                elem.on('click', function() {
+                    if (jQuery('.navigation-drawer').is(":visible")) {
+                        jQuery('.navigation-drawer').css({
+                            'display': 'none'
+                        });
+
+                    }else{
+                        jQuery('.navigation-drawer').css({'display':'block'});
+                    }
+                })
+            }
+        }
+    })
+    .directive('isNumber', function() {
+        return {
+            require: 'ngModel',
+            link: function(scope) {
+                scope.$watch('dealdetails.details.inventory', function(newValue, oldValue) {
+                    var arr = String(newValue).split("");
+                    if (arr.length === 0) return;
+                    if (arr.length === 1 && (arr[0] == '-' || arr[0] === '.')) return;
+                    if (arr.length === 2 && newValue === '-.') return;
+                    /*if (isNaN(newValue)) {
+                        scope.dealdetails.details.inventory = oldValue;
+                    }*/
+                });
+            }
+        };
+    })
+    .directive("loader", function($rootScope) {
+        return function($scope, element, attrs) {
+            $scope.$on("loader_show", function() {
+                return element.show();
+            });
+            return $scope.$on("loader_hide", function() {
+                return element.hide();
+            });
+        };
+    });

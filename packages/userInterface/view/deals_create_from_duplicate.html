@@ -1,0 +1,76 @@
+
+<main class="mdl-layout__content" layout="column" ng-init="initDuplicate();getAllListingForDeals()">
+    <div flex class="md-padding">
+        <div layout="column" class="md-whiteframe-z3" flex-sm- "100" flex-gt-sm="100" flex-gt-md="100" flex-gt-lg="100" style="margin-top:65px">
+            <md-content layout="row" layout-align="left center" class="border-bottom">
+                <h5 style="margin-left:15px;">CREATE DEALS</h5>
+            </md-content>
+        </div>
+    </div>
+    <div flex class="no-padding">
+        <form name="createDealForm" ng-submit="createDealFromDuplicate();">
+            <div flex class="md-padding">
+                <div layout="column" layout-align="center center" class="md-whiteframe-z3">
+                    <md-content layout-padding>
+                        <md-content layout-padding>
+                            <md-input-container>
+                                <div layout="row" style="background-color:#EBEBFF">
+                                    <h3 class="md-title" style="padding-left:10px">DEAL DETAILS</h3>
+                                </div>
+                            </md-input-container>
+                        </md-content>
+                        <md-content layout-padding style="margin-bottom: 30px;padding-left: 7%;">
+                            <md-autocomplete
+                                md-selected-item="list"
+                                md-search-text-change="searchTextChange(searchText)"
+                                md-search-text="searchText"
+                                md-selected-item-change="selectedItemChange(item)"
+                                md-items="item in allListings | filter:searchText "
+                                md-item-text="item.business_name"
+                                md-min-length="0"
+                                placeholder="Select Listing for Deal">
+                              <md-item-template>
+                                <span md-highlight-text="searchText" md-highlight-flags="^i">{{item.business_name}}</span>
+                              </md-item-template>
+                              <md-not-found>
+                                No listing matching {{searchText}} were found.
+                              </md-not-found>
+                            </md-autocomplete>
+                        </md-content>
+                        <md-input-container class="md-icon-float">
+                            <input type="text" ng-model="dealdetails.short_desc" placeholder="Deal Title" required>
+                        </md-input-container>
+                        <md-input-container class="md-icon-float">
+                            <textarea class="mdl-textfield__input" ng-model="dealdetails.description" type="text" rows="3" placeholder="Deal Description" style="padding-top: 20px;padding-left: 5px; height: 100px;margin-left: 35px;
+                                    width: 90%;" required>
+                            </textarea>
+                        </md-input-container>
+                        <md-datepicker ng-model="myDate" md-placeholder="Enter date"></md-datepicker>
+                        <md-input-container class="md-icon-float">
+                            <h4 style="margin-top: 0;height: 15px;font-size:15px;font-family: Roboto;padding-left:35px;color:#666666;font-weight:bold;">Deal Valid From</h4>
+                            <div style="padding-left:7%;">
+                                <input id="datepicker" ng-model="dealdetails.valid_from" style="width: 100%" kendodate required/>
+                            </div>
+                        </md-input-container>
+                        <md-input-container class="md-icon-float">
+                            <h4 style="margin-top: 0;height: 15px;font-size:15px;font-family: Roboto;padding-left:35px;color:#666666;font-weight:bold;">Deal Valid To</h4>
+                            <div style="padding-left:7%;">
+                                <input id="datepicker" ng-model="dealdetails.valid_to" style="width: 100%" kendodate required/>
+                            </div>
+                        </md-input-container>
+                        <md-input-container class="md-icon-float">
+                            <input type="number" ng-model="dealdetails.price" placeholder="Point Required" required>
+                        </md-input-container>
+                        <md-input-container class="md-icon-float">
+                            <input stop-event='touchstart' is-number ng-model="dealdetails.inventory" type="number" placeholder="Inventory" required>
+                        </md-input-container>
+                    </md-content>
+                </div>
+            </div>
+            <div layout="row" layout-sm="column" layout-align="center center" layout-wrap flex-offet='66' style="margin:20px 0;">
+                <md-button class="md-raised md-primary" type="submit">Create</md-button>
+            </div>
+        </form>
+    </div>
+
+</main>

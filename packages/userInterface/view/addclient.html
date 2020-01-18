@@ -1,0 +1,96 @@
+<main class="mdl-layout__content" layout="column">
+    <div class="md-padding">
+        <div layout="column" class="md-whiteframe-z5" flex-sm="100" flex-gt-sm="100" flex-gt-md="100" flex-gt-lg="100" style="margin-top:65px">
+            <md-content layout="row">
+                <md-content layout="row" flex="50" layout-align="left center" class="border-bottom">
+                   <md-content layout-padding flex="70" layout-align="left center">
+                        <md-button class="md-raised md-accent" ng-href="#/mrformlist"><b>View List</b></md-button>
+                    </md-content>
+                </md-content>
+                <md-content layout="row" flex="50" class="border-bottom">
+                   <md-content layout-padding flex="100" layout-align="center end">
+                        <md-button class="md-raised md-primary pull-right" ng-href="#/addclient" ng-click="clickMe()"><b>&#x2b; Add Client</b></md-button>
+                    </md-content>
+                </md-content>
+            </md-content>
+            <md-content layout="row">
+				<!-- Add Client Form -->
+                <form name="addClient"  ng-submit="addClient()" layout="column" flex="50">
+                    <div flex class="md-padding">
+                        <div layout="column" layout-align="center center" class="md-whiteframe-z3">
+                            <md-content layout-padding>
+                                <md-content layout-padding>
+                                    <md-input-container>
+                                        <div layout="row" layout-align="center center"  style="background-color:#EBEBFF">
+                                            <h3 class="md-title" style="padding-left:10px">Add Client</h3>
+                                        </div>
+                                    </md-input-container>
+                                </md-content>
+                                <md-input-container class="md-icon-float">
+                                    <input type="text" placeholder="Client Name" name="name" ng-model="client.name" required>
+                                </md-input-container>
+                                <md-input-container class="md-icon-float">
+                                    <textarea class="mdl-textfield__input" ng-model="client.description" type="text" rows="3" placeholder="Client Description" style="padding-top: 20px;padding-left: 5px; height: 100px;margin-left: 35px; width: 90%;" name="description" required>
+                                    </textarea>
+                                </md-input-container>
+                                <md-input-container class="md-icon-float" >
+									<md-select placeholder="Status" ng-model="client.status" style="padding-top: 20px;height: 100px;margin-left: 35px; width: 90%;" name="status" required>
+										<md-option value="0">Active</md-option>
+										<md-option value="1">Inactive</md-option>
+									</md-select>
+                                </md-input-container>
+                            </md-content>
+                        </div>
+                    </div>
+                    <div layout="row" layout-sm="column" layout-align="center center" layout-wrap flex-offet='66' style="margin:20px 0;">
+                        <md-button class="md-raised md-primary" type="submit" ng-click="addNewClient()">Add</md-button>
+                    </div>
+                </form>
+				
+				<!-- Clients List -->
+				<div layout="column" flex="50">
+                    <div flex class="md-padding">
+                        <div layout="column" layout-align="center center" class="md-whiteframe-z3">
+                            <md-content layout-padding>
+                                <md-content layout-padding>
+                                    <md-input-container>
+                                        <div layout="row" layout-align="center center"  style="background-color:#EBEBFF">
+                                            <h3 class="md-title" style="padding-left:10px">Clients List</h3>
+                                        </div>
+                                    </md-input-container>
+                                </md-content>
+								<md-content layout-padding style="padding-top:15px;">
+									<md-input-container class="md-icon-float">
+										<table class="table table-bordered table-striped table-hover listinglist" style="margin-bottom:20px;">
+											 <thead>
+												<tr>
+													<th>Name</th>
+														<th>Status</th>
+                                                    <th>Updated Date</th>
+													<th>&nbsp;</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr ng-repeat="client in clientList | filter:search">
+													<td class="capitalize">{{client.name}}</td>
+													 <td class="capitalize">
+                                                        <md-button ng-click="updateClientStatus(client.id, 1)" class="md-raised md-primary" style="background-color:#26ad26" ng-if=(client.status=='0')>Active</md-button><md-button ng-click="updateClientStatus(client.id, 0)"  class="md-raised md-primary" style="background-color:#fc8e8e" ng-if=(client.status=='1')>Inactive</md-button>
+                                                    </td>
+													<td class="capitalize">{{client.updated | date:'dd MMM yyyy'}}</td>
+													<td>
+														<!-- <button ng-click="edit({{value.id}})">Edit</button> -->
+														<i class="material-icons" ng-click="deleteClient(client.id)" style="color:rgb(244,67,54)">delete</i>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</md-input-container>
+								</md-content>
+                            </md-content>
+                        </div>
+                    </div>
+                </div>
+            </md-content>
+        </div>
+    </div>
+</main>

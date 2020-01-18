@@ -1,0 +1,86 @@
+<main class="mdl-layout__content" layout="column">
+    <!-- initializeAllListingForApproval(); -->
+    <div flex class="md-padding">
+        <div layout="column" class="md-whiteframe-z5" flex-sm- "100" flex-gt-sm="100" flex-gt-md="100" flex-gt-lg="100" style="margin-top:65px">
+			<md-content layout="row">
+                <md-content layout="row" flex="50" layout-align="left center" class="border-bottom">
+                   <md-content layout-padding flex="70" layout-align="left center">
+                       
+                    </md-content>
+                </md-content>
+                <md-content layout="row" flex="50" class="border-bottom">
+                   <md-content layout-padding flex="100" layout-align="center end">
+                       
+                    </md-content>
+                </md-content>
+            </md-content>
+            <md-content layout="row" layout-align="center center" >
+                <form name="Clform">
+                    <div flex class="md-padding">
+                        <div layout="column" layout-align="center center" class="md-whiteframe-z3">
+                            <md-content layout-padding>
+                                <md-content layout-padding>
+                                    <md-input-container>
+                                        <div layout="row" layout-align="center center"  style="background-color:#EBEBFF">
+                                            <h3 class="md-title" style="padding-left:10px">Add Question</h3>
+                                        </div>
+                                    </md-input-container>
+                                </md-content>
+                               	
+
+							<md-content layout-padding data-ng-repeat="q in question" ng-switch on="q['question'].type" class="md-default-theme animate-switch-container">
+
+								<md-input-container class="md-icon-float">
+									<h4 style="margin-top: 0;height: 15px;font-size:15px;font-family: Roboto;padding-left:35px;color:#666666;font-weight:bold;">Select Type</h4>
+									<md-select placeholder="Question Type" ng-model="q['question'].type"  style="padding-top:0px;margin-left:24px; width:90%;" required>
+											<!--<md-option ng-value="{{name.text}}" value="{{name.text}}" ng-repeat="name in categoryType">{{name.text}}</md-option>-->
+											 <md-option value="textfield">Input</md-option>
+											 <md-option value="textarea">Textarea</md-option>
+											 <md-option value="radio">Radio</md-option>
+											 <md-option value="checkbox">Checkbox</md-option>
+										</md-select>
+								</md-input-container>
+								<md-input-container class="md-icon-float" >
+	                                    <input type="text" placeholder="Question Description" ng-model="q['question'].description" required>
+	                            </md-input-container>
+								
+								<md-input-container class="md-icon-float" ng-switch-when="radio" class="animate-switch" ng-repeat="options in AnswerOptionRadio track by $index">
+                                    <input type="text" placeholder="Enter Radio Option" ng-model="q['question'].options[$index].description" required>
+                                </md-input-container>
+                                <md-content ng-switch-when="radio"  >
+                                	<div layout="row" layout-sm="column" layout-align="left center" layout-wrap flex-offet='66' style="margin:20px 0 0 25px;">
+										<md-button class="md-raised md-primary" ng-click="addRadioOptions()">Add option</md-button>
+									</div>
+								</md-content>
+                             	<md-input-container class="md-icon-float" ng-switch-when="checkbox" class="animate-switch" ng-repeat="options in AnswerOptionCheckbox track by $index">
+                                    <input type="text" placeholder="Enter Checkbox Option" ng-model="q['question'].options[$index].description" required>
+                                </md-input-container>
+                                <md-content  ng-switch-when="checkbox" >
+                                	<div layout="row" layout-sm="column" layout-align="left center" layout-wrap flex-offet='66' style="margin:20px 0 0 25px;">
+										<md-button class="md-raised md-primary" ng-click="addCheckboxOptions()">Add option</md-button>
+									</div>
+								</md-content>
+	                        </md-content>
+							<md-content layout-padding>
+								<md-input-container class="md-icon-float">
+									<div layout="row" layout-sm="column" layout-align="left center" layout-wrap flex-offet='66' style="margin:20px 0 0 25px;">
+										<md-button class="md-raised md-primary" type="submit" ng-click="addQuestion()">Add Question</md-button>
+									</div>
+                                </md-input-container>	
+							</md-content>
+							<md-content layout-padding layout="row" flex="100">
+								<md-content flex="100" >
+									<md-button class="md-raised md-primary"  type="submit" ng-click="submit()"><b>Submit</b></md-button>
+								</md-content>
+								<!--<md-content flex="50" >
+									<md-button class="md-raised md-primary"><b>Edit</b></md-button>
+								</md-content>-->
+							</md-content>		
+                        </md-content>
+                        </div>
+                    </div>
+                </form>
+            </md-content>
+        </div>
+    </div>
+</main>

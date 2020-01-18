@@ -1,0 +1,137 @@
+<style>
+    th {
+    text-align: center;
+    height: 63px;
+    width: 125px;
+}
+td, th {
+    padding: 5px;
+}
+</style>
+<main class="mdl-layout__content" layout="column" ng-init="getListingDetails();">
+    <div flex class="md-padding">
+        <div layout="column" class="md-whiteframe-z5" flex-sm- "100" flex-gt-sm="100" flex-gt-md="100" flex-gt-lg="100" style="margin-top:65px">
+            <md-content layout="row" layout-align="left center" class="border-bottom" >
+                <h5 style="margin-left:15px;">LISTING DETAILS VIEW</h5>
+            </md-content>
+
+            <md-content layout="column" layout-align="left start" class="border-bottom" >
+                <h6 style="margin:10px 0px 5px 20px;" > <span style="font-weight:bold">Listing Id:</span><span style="margin-left:15px;color:#6F6F6E;">{{listing.listing_details.listing_id}}</span></h6>
+                <h6 style="margin:10px 0px 5px 20px;"> 
+                    <span style="font-weight:bold">Status:</span>
+                    <span style="margin-left:15px;color:#6F6F6E; text-transform: capitalize;" >
+                        {{listing.listing_details.status}}
+                    </span>
+                </h6>
+            </md-content>
+            <md-content layout="row" layout-align="end center">
+                <md-button  class="md-raised md-primary" ng-click="goToEditListPage(listing.listing_details.listing_id)">Edit</md-button>
+            </md-content>
+
+            <md-content layout="row"  style="padding:5px">
+                <md-content flex="45" layout="row" layout-align="end center"><span><b> Name:</b></span></md-content>
+                <md-content flex="55" layout="row" layout-align="start center"><span class="capitalize"  style="margin-left:10px">{{listing.listing_details.business_name}}</span></md-content>
+            </md-content>
+            <md-content layout="row"  style="padding:5px">
+                <md-content flex="45" layout="row" layout-align="end start"><span><b> Listing Category:</b></span></md-content>
+                <md-content flex="55" layout="column" layout-align="start start"><span class="capitalize"  style="margin-left:10px" ng-repeat="category_detail in listing.category_details">{{category_detail.category}}</span></md-content>
+            </md-content>
+            <md-content layout="row"  style="padding:5px">
+                <md-content flex="45" layout="row" layout-align="end center"><span><b> Primary Phone Number:</b></span></md-content>
+                <md-content flex="55" layout="row" layout-align="start center"><span  style="margin-left:10px">{{listing.listing_details.phone_no}}</span></md-content>
+            </md-content>
+            <md-content layout="row"  style="padding:5px">
+                <md-content flex="45" layout="row" layout-align="end center"><span><b> Secondary Phone Number:</b></span></md-content>
+                <md-content flex="55" layout="row" layout-align="start center"><span  style="margin-left:10px">{{listing.listing_details.phone_no2}}</span></md-content>
+            </md-content>
+            <md-content layout="row"  style="padding:5px">
+                <md-content flex="45" layout="row" layout-align="end center"><span><b> Email Id:</b></span></md-content>
+                <md-content flex="55" layout="row" layout-align="start center"><span  style="margin-left:10px">{{listing.listing_details.bussines_email}}</span></md-content>
+            </md-content>
+            <md-content layout="row"  style="padding:5px">
+                <md-content flex="45" layout="row" layout-align="end center"><span><b> Locality:</b></span></md-content>
+                <md-content flex="55" layout="row" layout-align="start center"><span class="capitalize"  style="margin-left:10px">{{listing.listing_details.location}}</span></md-content>
+            </md-content>
+            <md-content layout="row"  style="padding:5px">
+                <md-content flex="45" layout="row" layout-align="end center"><span><b> Address Line 1:</b></span></md-content>
+                <md-content flex="55" layout="row" layout-align="start center"><span class="capitalize"  style="margin-left:10px">{{listing.listing_details.address}}</span></md-content>
+            </md-content>
+            <md-content layout="row"  style="padding:5px">
+                <md-content flex="45" layout="row" layout-align="end center"><span><b> Address Line 2:</b></span></md-content>
+                <md-content flex="55" layout="row" layout-align="start center"><span class="capitalize"  style="margin-left:10px">{{listing.listing_details.address2}}</span></md-content>
+            </md-content>
+            <md-content layout="row"  style="padding:5px">
+                <md-content flex="45" layout="row" layout-align="end center"><span><b> City:</b></span></md-content>
+                <md-content flex="55" layout="row" layout-align="start center"><span class="capitalize"  style="margin-left:10px">{{listing.listing_details.city}}</span></md-content>
+            </md-content>
+            <md-content layout="row"  style="padding:5px">
+                <md-content flex="45" layout="row" layout-align="end center"><span><b> State:</b></span></md-content>
+                <md-content flex="55" layout="row" layout-align="start center"><span class="capitalize"  style="margin-left:10px">{{listing.listing_details.state}}</span></md-content>
+            </md-content>
+            <md-content layout="row"  style="padding:5px">
+                <md-content flex="45" layout="row" layout-align="end center"><span><b> PIN:</b></span></md-content>
+                <md-content flex="55" layout="row" layout-align="start center"><span  style="margin-left:10px">{{listing.listing_details.pin}}</span></md-content>
+            </md-content>
+            <md-content layout="row"  style="padding:5px">
+                <md-content flex="45" layout="row" layout-align="end start"><span><b> GPS Coordinate:</b></span></md-content>
+                <md-content flex="55" layout="column" layout-align="start start">
+                    <div  style="margin-left:10px">{{listing.listing_details.latitude}}</div>
+                    <div  style="margin-left:10px">{{listing.listing_details.longitude}}</div>
+                </md-content>
+            </md-content>
+            <md-content layout="row"  style="padding:5px">
+                <md-content flex="45" layout="row" layout-align="end start"><span><b> Description:</b></span></md-content>
+                <md-content flex="55" layout="row" layout-align="start start"><span  style="margin-left:10px;width:50%;">{{listing.listing_details.description}}</span></md-content>
+            </md-content>
+            <md-content layout="row"  style="padding:5px">
+                <md-content flex="45" layout="row" layout-align="end center"><span><b> Creator:</b></span></md-content>
+                <md-content flex="55" layout="row" layout-align="start center"><span  style="margin-left:10px">{{listing.listing_details.creator}}</span></md-content>
+            </md-content>
+
+            <md-content layout="row" layout-align="center center" style="padding:10px">
+                    <table style="border:1px solid black;" cellspacing="5" cellpadding="50">
+                    <thead>
+                        <tr>
+                            <th style="">Day Open</th>
+                            <th>Open Time</th>
+                            <th>Closing Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>                        
+                        <tr ng-repeat="open_close_details in listing.open_close_details">
+                            <td class="capitalize">
+                                <span ng-if="open_close_details.day=='Mon'">Monday</span>
+                                <span ng-if="open_close_details.day=='Tue'">Tuesday</span>
+                                <span ng-if="open_close_details.day=='Wed'">Wednesday</span>
+                                <span ng-if="open_close_details.day=='Thu'">Thursday</span>
+                                <span ng-if="open_close_details.day=='Fri'">Friday</span>
+                                <span ng-if="open_close_details.day=='Sat'">Saturday</span>
+                                <span ng-if="open_close_details.day=='Sun'">Sunday</span>
+                            </td>
+                            <td>{{open_close_details.open}}</td>
+                            <td>{{open_close_details.close}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </md-content>
+            <md-content layout="row"  style="padding:5px">
+                <md-content flex="45" layout="row" layout-align="end start"><span><b> Home Delivery:</b></span></md-content>
+                <md-content flex="55" layout="row" layout-align="start start">
+                    <span ng-if="listing.listing_details.delivers=='Y'"  style="margin-left:10px;width:50%;">Yes</span>
+                    <span ng-if="listing.listing_details.delivers=='N'"  style="margin-left:10px;width:50%;">No</span>
+                </md-content>
+            </md-content>
+            <md-content layout="row"  style="padding:5px">
+                <md-content flex="45" layout="row" layout-align="end start"><span><b> Mode of Payments:</b></span></md-content>
+                <md-content flex="55" layout="column" layout-align="start start">
+                    <div  style="margin-left:10px" ng-if="(listing.listing_details.cash =='Cash')||(listing.listing_details.cash =='cash')">Cash</div>
+                    <div  style="margin-left:10px" ng-if="(listing.listing_details.card =='Card')||(listing.listing_details.card =='card')">Card</div>
+                </md-content>
+            </md-content>
+            <md-content layout="row" layout-align="center center" style="margin-bottom:20px;">
+                <md-button  class="md-raised md-primary" ng-click="acceptList()">Approve</md-button>
+                <md-button  class="md-raised md-warn" ng-click="rejectList()">Reject</md-button>
+            </md-content>
+        </div>
+    </div>
+</main>

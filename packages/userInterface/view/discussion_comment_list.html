@@ -1,0 +1,66 @@
+<main class="mdl-layout__content" layout="column" ng-init="getAllDiscussionComments();">
+    <div flex class="md-padding">
+        <div layout="column" class="md-whiteframe-z5" flex-sm- "100" flex-gt-sm="100" flex-gt-md="100" flex-gt-lg="100" style="margin-top:65px;padding-bottom:20px;">
+            <md-content layout="row" class="border-bottom">
+                <md-content layout="row" flex="70" layout-align="left center" >
+                    <h5 style="margin-left:15px;">PARENTSHIP DISCUSSION DETAILS</h5>
+                </md-content>
+            </md-content>
+            <md-content layout="column" class="md-padding">
+                <md-content layout="row" layout-align="end center">
+                    <md-content layout="row" flex="50" layout-align="start center">
+                        <b>Created By: </b><span class="capitalize">{{discussion_details.d_creator_name}} </span><span>( {{ discussion_details.d_creator_email }})</span>
+                    </md-content>
+                    <md-content layout="row" flex="50" layout-align="end center">
+                        <span><b>Created On: </b>{{ discussion_details.discussion_create_time}}</span>
+                    </md-content>
+                </md-content>
+                <md-content layout="row" layout-align="start center">
+                    <h5>{{discussion_details.title}}</h5>
+                </md-content>
+                <md-content layout="row" layout-align="start center">
+                    <p>{{discussion_details.description}}</p>
+                </md-content>
+            </md-content>
+            <!-- we test -->
+            <md-content layout="row" class="no-padding" style="padding-top:0;" layout-align="end start" ng-repeat="comment in discussion_comments"> 
+                <md-content layout="column"  style="border:0px solid #000; width:90%">
+                    <md-content layout="row" layout-align="space-between start">
+                        <div style="margin:10px;margin-bottom:0"><b><span class="capitalize">{{comment.c_creator_name}} </span></b><span><b>({{comment.c_creator_email}})<br></b></span>{{comment.comment}}</div>
+                        <div>
+                            <button ng-click="toggleComment(comment)" ng-show="comment.hidden==='false'">Hide <span style="vertical-align:middle" class="glyphicon glyphicon-remove"></span></button>
+                            <button ng-click="toggleComment(comment)" ng-show="comment.hidden!='false'">Show <span style="vertical-align:middle" class="glyphicon glyphicon-ok"></span></button>
+                        </div>
+                    </md-content>
+
+                    <md-content layout="row" layout-align="end start">
+                        <div style="margin-right:10px;font-size:12px;">
+                            <span><b>On: </b>{{ comment.comment_time}}</span>
+                        </div>
+                    </md-content>
+                    <md-content layout="column" layout-align="start end">
+                        <md-content layout="column"  style="border:0px solid #000; width:90%;font-size:13px;" ng-repeat="reply in replyObj[$index].replies">
+                            <md-content layout="row" layout-align="space-between start">
+                                <div style="margin:10px;margin-bottom:0"><b><span class="capitalize">{{reply.replier_name}} </span></b><span><b>({{reply.replier_email}})<br></b></span>{{reply.reply}}</div>
+                                <div>
+                                    <button ng-click="toggleReply(reply)" ng-show="reply.hidden==='false'">Hide <span style="vertical-align:middle" class="glyphicon glyphicon-remove"></span></button>
+                                    <button ng-click="toggleReply(reply)" ng-show="reply.hidden!='false'">Show <span style="vertical-align:middle" class="glyphicon glyphicon-ok"></span></button>
+                                </div>
+                            </md-content>
+
+                            <md-content layout="row" layout-align="end start">
+                                <div style="margin-right:10px;font-size:12px;">
+                                    <span><b>On: </b>{{ reply.reply_time}}</span>
+                                </div>
+                            </md-content>
+                        </md-content>
+                    </md-content>
+                    <hr>
+
+                </md-content>
+
+            </md-content>
+
+        </div>
+    </div>
+</main>

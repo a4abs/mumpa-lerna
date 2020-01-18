@@ -1,0 +1,147 @@
+<main class="mdl-layout__content" layout="column">
+    <div class="md-padding">
+        <div layout="column" class="md-whiteframe-z5" flex-sm="100" flex-gt-sm="100" flex-gt-md="100" flex-gt-lg="100" style="margin-top:65px">
+            <md-content layout="row">
+                <md-content layout="row" flex="50" layout-align="left center" class="border-bottom">
+                   <md-content layout-padding flex="70" layout-align="left center">
+                        <md-button class="md-raised md-accent" ng-href="#/mrformlist"><b>Back to form list</b></md-button>
+                    </md-content>
+                </md-content>
+                <md-content layout="row" flex="50" class="border-bottom">
+                   <md-content layout-padding flex="100" layout-align="center end">
+                       
+                    </md-content>
+                </md-content>
+            </md-content>
+            <md-content layout="row">
+				<!-- Add Client Form -->
+              
+                    <div flex class="md-padding">
+                        <div layout="column" layout-align="center center" class="md-whiteframe-z3">
+                            <md-content layout-padding>
+                                <md-content layout-padding>
+                                    <md-input-container>
+                                        <div layout="row" layout-align="center center"  style="background-color:#EBEBFF">
+                                            <h3 class="md-title" style="padding-left:10px">{{mrform.description}}</h3>
+                                        </div>
+                                    </md-input-container>
+                                </md-content>
+                                <md-list>
+                                  <md-list-item class="md-2-line">
+                                    <div class="md-list-item-text">
+                                      <h3>Description</h3>
+                                      <p>{{mrform.description}}</p>
+                                    </div>
+                                  </md-list-item>
+                                   <md-list-item class="md-2-line">
+                                    <div class="md-list-item-text">
+                                      <h3>Created on</h3>
+                                      <p>{{mrform.created  | date:'dd MMMM yyyy'}}</p>
+                                    </div>
+                                  </md-list-item>
+                                   <md-list-item class="md-2-line">
+                                    <div class="md-list-item-text">
+                                      <h3>Updated on</h3>
+                                      <p>{{mrform.updated  | date:'dd MMMM yyyy'}}</p>
+                                    </div>
+                                  </md-list-item>
+                                   <md-list-item class="md-2-line">
+                                    <div class="md-list-item-text">
+                                      <h3>Start Date</h3>
+                                      <p>{{mrform.start_date  | date:'dd MMMM yyyy'}}</p>
+                                    </div>
+                                  </md-list-item>
+                                   <md-list-item class="md-2-line">
+                                    <div class="md-list-item-text">
+                                      <h3>End Date</h3>
+                                      <p>{{mrform.end_date  | date:'dd MMMM yyyy'}}</p>
+                                    </div>
+                                  </md-list-item>
+                                  <md-list-item class="md-2-line" ng-if="(mrform.cash=='1')">
+                                    <div class="md-list-item-text">
+                                      <h3>Cash Value</h3>
+                                      <p>{{mrform.cash_value}}</p>
+                                    </div>
+                                  </md-list-item>
+                                  <md-list-item class="md-2-line"  ng-if="(mrform.points=='1')">
+                                    <div class="md-list-item-text">
+                                      <h3>Points Value</h3>
+                                      <p>{{mrform.points_value}}</p>
+                                    </div>
+                                  </md-list-item>
+                                   <md-list-item class="md-2-line">
+                                    <div class="md-list-item-text">
+                                      <h3>Clients</h3>
+                                      <p style="display:block"><span ng-repeat="assignclient in assignedClients" ng-click="unAssignedClient(assignclient.id)" style="background:#EBEBFF; padding:6px 10px; margin-right:10px; border-radius:3px; margin-top:10px; display:inline-block;"><b>{{assignclient.name}}</b>{{$last ? '' : ', '}}</span> </p>
+                                    </div>
+                                  </md-list-item>
+                                  <md-list-item class="md-2-line">
+                                    <div class="md-list-item-text">
+                                      <h3>Status</h3>
+                                      <p ng-if="(mrform.status=='1')">Active</p>
+                                      <p ng-if="(mrform.status=='0')">Inactive</p>
+                                    </div>
+                                  </md-list-item>
+                                   <md-list-item class="md-2-line" >
+                                    <div class="md-list-item-text">
+                                      <h3>Image</h3>
+                                      <p  ng-if="mrform.image_url"><img src="{{mrform.image_url}}" width="100%"></p>
+                                      <p  ng-if="!mrform.image_url"><a href="#/uploadbanner/{{mrform.id}}">Upload banner</a></p>
+                                    </div>
+                                  </md-list-item>
+                                </md-list>
+
+                              
+                              
+                            </md-content>
+                        </div>
+                    </div>
+                  
+               
+				
+				<!-- Clients List -->
+				<div layout="column" flex="50">
+                    <div flex class="md-padding">
+                        <div layout="column" layout-align="center center" class="md-whiteframe-z3">
+                            <md-content layout-padding>
+                                <md-content layout-padding>
+                                    <md-input-container>
+                                        <div layout="row" layout-align="center center"  style="background-color:#EBEBFF">
+                                            <h3 class="md-title" style="padding-left:10px">Select clients</h3>
+                                        </div>
+                                    </md-input-container>
+                                </md-content>
+								<md-content layout-padding style="padding-top:15px;">
+									<md-input-container class="md-icon-float">
+										<table class="table table-bordered table-striped table-hover listinglist" style="margin-bottom:20px;">
+											 <thead>
+												<tr>
+													<th width="70%"  style="text-align:left; padding-left:10px">Name</th>
+													
+                                                   
+													<th></th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr ng-repeat="client in clientList">
+													<td class="capitalize" style="text-align:left; padding-left:10px">{{client.name}}</td>
+													<td>
+														<!-- <button ng-click="edit({{value.id}})">Edit</button> -->
+														<md-button class="md-raised md-primary" ng-click="assignClient(client.id)">Select</md-button>
+                                                       
+													</td>
+												</tr>
+
+											</tbody>
+										</table>
+                                        <div ng-show="!clientList.length">No client(s) available</div>
+									</md-input-container>
+								</md-content>
+                            </md-content>
+                        </div>
+                    </div>
+                </div>
+            </md-content>
+        </div>
+    </div>
+</main>

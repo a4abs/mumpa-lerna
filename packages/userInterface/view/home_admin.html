@@ -1,0 +1,134 @@
+<main class="mdl-layout__content" layout="column" ng-init="init();">
+    <div flex class="md-padding">
+        <div layout="column" class="md-whiteframe-z1" flex-sm- "100" flex-gt-sm="100" flex-gt-md="100" flex-gt-lg="100" style="margin-top:65px">
+            <!-- <md-content layout="row" layout-align="center center" class="border-bottom" >
+                <h5 style="margin-left:15px;">MUMPA DETAILS</h5>
+            </md-content> -->
+
+
+
+            <md-content layout="row">
+                <md-content flex="50" layout="column" layout-align="space-around center" style="border:1px solid #000;">
+                    <div><h5>USER DETAILS</h5></div>
+                    <div>
+                        <table class="table table-bordered table-striped table-hover userlist" style="margin-bottom:20px;">
+                            <thead>
+                                <tr>
+                                    <th>USER TYPE</th>
+                                    <th>NO. OF USERS</th>
+                                </tr>
+                            </thead>
+                            <tbody>          
+                                <tr>
+                                    <td class="capitalize">Admin</td>
+                                    <td class="capitalize">{{home_details.user_details.admin}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="capitalize">Dealer</td>
+                                    <td class="capitalize">{{home_details.user_details.dealer}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="capitalize">User</td>
+                                    <td class="capitalize">{{home_details.user_details.user}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="capitalize">Total</td>
+                                    <td class="capitalize">{{home_details.user_details.total}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div style="margin-bottom:20px;">
+                        <a href="#/users"><b>GO TO USER'S PAGE</b></a>
+                    </div>
+                </md-content>
+                <md-content flex="50" layout="column" layout-align="space-around center" style="border:1px solid #000;">
+                    <div><h5>DEALS DETAILS</h5></div>
+                    <div>
+                        <table class="table table-bordered table-striped table-hover userlist" style="margin-bottom:20px;">
+                            <thead>
+                                <tr>
+                                    <th>DEAL TYPE</th>
+                                    <th>NO. OF DEALS</th>
+                                </tr>
+                            </thead>
+                            <tbody>          
+                                <tr>
+                                    <td class="capitalize">Active</td>
+                                    <td class="capitalize">{{home_details.deal_details.active}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="capitalize">Expired</td>
+                                    <td class="capitalize">{{home_details.deal_details.inactive}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="capitalize">Total</td>
+                                    <td class="capitalize">{{home_details.deal_details.total}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div style="margin-bottom:20px;">
+                        <a href="#/deals"><b>GO TO DEAL'S PAGE</b></a>
+                    </div>
+                </md-content>
+            </md-content>
+            <md-content layout="row">
+                <md-content flex="50" layout="column" layout-align="center center" style="border:1px solid #000;">
+                    <div><h5>LISTING DETAILS</h5></div>
+                    <div><h6>Total Listing  :{{  home_details.list_details.total}}</h6></div>
+                    <div>
+                        <table class="table table-bordered table-striped table-hover userlist" style="margin-bottom:20px;">
+                            <thead>
+                                <tr>
+                                    <th>LISTING TYPE</th>
+                                    <th>NO. OF LISTING</th>
+                                    <th>LINK </th>
+                                </tr>
+                            </thead>
+                            <tbody>          
+                                <tr>
+                                    <td class="capitalize">Listing for Approval</td>
+                                    <td class="capitalize">{{home_details.list_details.approval}}</td>
+                                    <td class="capitalize"><md-button class="md-raised md-primary" href="#/listingsForApproval"><span style="padding:8px;">View Details</span></md-button></td>
+                                </tr>
+                                <tr>
+                                    <td class="capitalize">Active Approved Listing</td>
+                                    <td class="capitalize">{{home_details.list_details.approved}}</td>
+                                    <td class="capitalize"><md-button class="md-raised md-primary" href="#/listings"><span style="padding:8px;">View Details</span></md-button></td>
+                                </tr>
+                                <tr>
+                                    <td class="capitalize">Rejected Listing</td>
+                                    <td class="capitalize">{{home_details.list_details.rejected}}</td>
+                                    <td class="capitalize"><md-button class="md-raised md-primary" href="#/listingsRejected"><span style="padding:8px;">View Details</span></md-button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </md-content>
+                <md-content flex="50" layout="column" layout-align="start center" style="border:1px solid #000;">
+                    <div><h5>CATEGORY DETAILS</h5></div>
+                    <div><h6>Total Category  :{{  home_details.category_details.length -1}}</h6></div>
+                    <div style="max-height:200px;">
+                        <table class="table table-bordered table-striped table-hover userlist" style="margin-bottom:20px;">
+                            <thead>
+                                <tr>
+                                    <th>CATEGORY_ID</th>
+                                    <th>CATEGORY</th>
+                                    <th>NO. OF LISTING</th>
+                                </tr>
+                            </thead>
+                            <tbody>          
+                                <tr ng-repeat="cat in home_details.category_details">
+                                    <td class="capitalize">{{cat.category_id}}</td>
+                                    <td class="capitalize">{{cat.category}}</td>
+                                    <td class="capitalize">{{cat.list_count}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </md-content>
+            </md-content>        
+        </div>
+    </div>
+</main>

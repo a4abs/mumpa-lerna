@@ -1,0 +1,40 @@
+
+<main class="mdl-layout__content" layout="column" ng-init="getAllDiscussions();">
+    <div flex class="md-padding">
+        <div layout="column" class="md-whiteframe-z5" flex-sm- "100" flex-gt-sm="100" flex-gt-md="100" flex-gt-lg="100" style="margin-top:65px">
+            <md-content layout="row">
+                <md-content layout="row" flex="70" layout-align="left center" class="border-bottom">
+                    <h5 style="margin-left:15px;">PARENTSHIP DISCUSSIONS</h5>
+                </md-content>
+                <md-content layout="row" flex="30"  layout-align="center end" class="border-bottom">
+                    <md-input-container style="width:250px;">
+                        <label class="glyphicon glyphicon-search" style="color: #666666; font-size: 20px;">  Search...</label>
+                        <input ng-model="filter.$">
+                    </md-input-container>
+                </md-content>
+            </md-content>
+            
+            <md-content layout-padding>
+                <table class="table table-bordered table-striped table-hover userlist" ng-table="tableParams" style="margin-bottom:20px;">
+                    <tbody>         
+                        <tr ng-repeat="discussion in $data">
+                            <td data-title="'ID'" sortable="'d_id'" class="capitalize" ng-click="gotoDiscussionComments(discussion.d_id)">{{discussion.d_id}}</td>
+                            <td data-title="'TITLE'" sortable="'title'" class="capitalize" ng-click="gotoDiscussionComments(discussion.d_id)">{{discussion.title}}</td>
+                            <td data-title="'CREATOR'" sortable="'d_creator_name'" class="capitalize" ng-click="gotoDiscussionComments(discussion.d_id)">{{discussion.d_creator_name}}</td>
+                            <td data-title="'CREATOR EMAIL'" sortable="'d_creator_email'" ng-click="gotoDiscussionComments(discussion.d_id)">{{discussion.d_creator_email}}</td>
+                            <td data-title="'CREATED ON'" sortable="'discussion_create_time'" ng-click="gotoDiscussionComments(discussion.d_id)">{{discussion.discussion_create_time | date}}</td>
+                            <td data-title="'NO. OF COMMENTS'" sortable="'comment_count'" class="capitalize" ng-click="gotoDiscussionComments(discussion.d_id)">{{discussion.comment_count}}</td>
+                            <td data-title="'DELETE'"> 
+                                <md-button ng-show="discussion.hidden==='false'" class="md-raised md-warn" ng-click="toggleDiscussion(discussion)">HIDE</md-button>
+                                <md-button ng-show="discussion.hidden!='false'" class="md-raised md-primary" ng-click="toggleDiscussion(discussion)">SHOW</md-button>
+                            </td>
+                            <!-- <td data-title="'DETAILS'"> 
+                                <md-button ng-disabled="discussion.comment_count<=0" class="md-raised md-primary" ng-click="gotoDiscussionComments(discussion.d_id)">SHOW DETAILS</md-button>
+                            </td> -->
+                        </tr>
+                    </tbody>
+                </table>
+            </md-content>
+        </div>
+    </div>
+</main>
