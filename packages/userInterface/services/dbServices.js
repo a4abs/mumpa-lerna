@@ -5,7 +5,7 @@ mumpaApp.service("dbServices", [
   function($http) {
     //var host = 'http://104.131.75.147';
     //var host = 'http://23.236.190.167';
-    var host = "http://localhost";
+    var host = "http://157.245.105.155";
     var port = "4000";
     var host_server = host + ":" + port;
     //var host_server = backend;
